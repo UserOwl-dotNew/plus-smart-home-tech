@@ -71,7 +71,7 @@ protocol HubEventProtocol {
 	* Представляет действие, которое должно быть выполнено устройством.
 	*/
 	record DeviceActionAvro {
-		string sensorId;
+		string sensor_id;
 		TypeAction type;
 		int? value;
 	}
@@ -89,7 +89,7 @@ protocol HubEventProtocol {
 	* Условие сценария, которое содержит информацию о датчике, типе условия, операции и значении.
 	*/
 	record ScenarioConditionAvro {
-		string sensorId;
+		string sensor_id;
 		TypeCondition type;
 		Operation operation;
 		int? value;

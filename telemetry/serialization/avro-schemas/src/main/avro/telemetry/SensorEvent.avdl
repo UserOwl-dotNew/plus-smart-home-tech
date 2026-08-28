@@ -4,16 +4,16 @@ protocol SensorEventProtocol {
 	* Событие климатического датчика, содержащее информацию о температуре, влажности и уровне CO2.
 	*/
 	record ClimateSensorEventAvro {
-		int temperatureC;
+		int temperature_c;
 		int humidity;
-		int co2Level;
+		int co2_level;
 	}
 
 	/*
 	* Событие датчика освещенности, содержащее информацию о качестве связи и уровне освещенности.
 	*/
 	record LightSensorEventAvro {
-		int linkQuality;
+		int link_quality;
 		int luminosity;
 	}
 
@@ -21,7 +21,7 @@ protocol SensorEventProtocol {
 	* Событие датчика движения.
 	*/
 	record MotionSensorEventAvro {
-		int linkQuality;
+		int link_quality;
 		boolean motion;
 		int voltage;
 	}
@@ -37,8 +37,8 @@ protocol SensorEventProtocol {
 	* Событие датчика температуры, содержащее информацию о температуре в градусах Цельсия и Фаренгейта.
 	*/
 	record TemperatureSensorEventAvro {
-		int temperatureC;
-		int temperatureF;
+		int temperature_c;
+		int temperature_f;
 	}
 
 	record SensorEventAvro {

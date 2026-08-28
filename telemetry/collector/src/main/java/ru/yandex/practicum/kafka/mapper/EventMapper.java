@@ -15,9 +15,7 @@ import ru.yandex.practicum.kafka.telemetry.event.*;
 @Mapper(componentModel = "spring")
 public interface EventMapper {
 
-    /**
-     * Датчики
-     */
+    // Датчики
     ClimateSensorEventAvro toAvro(ClimateSensorEvent event);
 
     @Mapping(source = "linkQuality", target = "linkQuality")
@@ -32,9 +30,7 @@ public interface EventMapper {
 
     SwitchSensorEventAvro toAvro(SwitchSensorEvent event);
 
-    /**
-     * Хаб
-     */
+    // Хаб
     @Mapping(source = "deviceType", target = "type")
     DeviceAddedEventAvro toAvro(DeviceAddedEvent event);
 
@@ -44,16 +40,12 @@ public interface EventMapper {
 
     ScenarioRemovedEventAvro toAvro(ScenarioRemovedEvent event);
 
-    /**
-     * Вложенные структуры
-     */
+    // Вложенные структуры
     DeviceActionAvro toAvro(DeviceAction action);
 
     ScenarioConditionAvro toAvro(ScenarioCondition condition);
 
-    /**
-     * Оборачиваем в SensorEventAvro
-     */
+    // Оборачиваем в SensorEventAvro
     default SensorEventAvro toSensorEventAvro(ClimateSensorEvent event) {
         return SensorEventAvro.newBuilder()
                 .setId(event.getId())
@@ -99,9 +91,7 @@ public interface EventMapper {
                 .build();
     }
 
-    /**
-     * Оборачиваем в HubEventAvro
-     */
+    // Оборачиваем в HubEventAvro
     default HubEventAvro toHubEventAvro(DeviceAddedEvent event) {
         return HubEventAvro.newBuilder()
                 .setHubId(event.getHubId())
