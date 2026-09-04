@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package telemetry.message.event;
+package telemetry.messages;
 
 import "google/protobuf/timestamp.proto";
 
@@ -17,7 +17,7 @@ message HubEventProto {
         ScenarioRemovedEventProto scenario_removed_event_proto = 6;
     }
 }
-enum TypeDeviceProto {
+enum DeviceTypeProto {
     MOTION_SENSOR = 0;
     TEMPERATURE_SENSOR = 1;
     LIGHT_SENSOR = 2;
@@ -25,21 +25,16 @@ enum TypeDeviceProto {
     SWITCH_SENSOR = 4;
 }
 
-enum TypeHubEventProto {
-    DEVICE_ADDED = 0;
-    DEVICE_REMOVED = 1;
-    SCENARIO_ADDED = 2;
-    SCENARIO_REMOVED = 3;
+message DeviceAddedEventProto {
+    string id = 1;
+    DeviceTypeProto type = 2;
 }
 
-enum TypeActionProto {
-    ACTIVATE = 0;
-    DEACTIVATE = 1;
-    INVERSE = 2;
-    SET_VALUE = 3;
+message DeviceRemovedEventProto {
+    string id = 1;
 }
 
-enum TypeConditionProto {
+enum ConditionTypeProto {
     MOTION = 0;
     LUMINOSITY = 1;
     SWITCH = 2;
@@ -48,35 +43,33 @@ enum TypeConditionProto {
     HUMIDITY = 5;
 }
 
-enum OperationProto {
+enum ConditionOperationProto {
     EQUALS = 0;
     GREATER_THAN = 1;
     LOWER_THAN = 2;
 }
 
-message DeviceAddedEventProto {
-    string id = 1;
-    TypeDeviceProto type = 2;
-}
-
-message DeviceRemovedEventProto {
-    string id = 1;
-}
-
-message DeviceActionProto {
-    string sensor_id = 1;
-    TypeActionProto type = 2;
-    optional int32 value = 3;
-}
-
 message ScenarioConditionProto {
     string sensor_id = 1;
-    TypeConditionProto type = 2;
-    OperationProto operation = 3;
+    ConditionTypeProto type = 2;
+    ConditionOperationProto operation = 3;
     oneof value {
         bool bool_value = 4;
         int32 int_value = 5;
     }
+}
+
+enum ActionTypeProto {
+    ACTIVATE = 0;
+    DEACTIVATE = 1;
+    INVERSE = 2;
+    SET_VALUE = 3;
+}
+
+message DeviceActionProto {
+    string sensor_id = 1;
+    ActionTypeProto type = 2;
+    optional int32 value = 3;
 }
 
 message ScenarioAddedEventProto {
