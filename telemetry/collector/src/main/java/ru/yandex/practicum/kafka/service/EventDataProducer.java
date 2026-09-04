@@ -41,7 +41,7 @@ public class EventDataProducer {
     }
 
     int getRandomSensorValue(int prevValue) {
-        return prevValue + (int)(Math.random() * 7 - 3);
+        return prevValue + (int) (Math.random() * 7 - 3);
     }
 
     private void sendEvent(SensorEventProto event) {

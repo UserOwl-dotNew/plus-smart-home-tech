@@ -7,7 +7,7 @@
 //import ru.yandex.practicum.kafka.event.HubEvent;
 //import ru.yandex.practicum.kafka.event.SensorEvent;
 //
-///**
+/// **
 // * API для передачи событий от датчиков и хабов
 // */
 //@RequestMapping("/events")
