@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "scenario_conditions")
+@IdClass(ScenarioConditionId.class)
 @Data
 @Builder
 @NoArgsConstructor
@@ -15,18 +16,17 @@ import lombok.NoArgsConstructor;
 public class ScenarioCondition {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
     @ManyToOne
-    @Column(name = "scenario", nullable = false)
+    @JoinColumn(name = "scenario_id")
     private Scenario scenario;
 
+    @Id
     @ManyToOne
-    @JoinColumn(name = "sensor_id", nullable = false)
+    @JoinColumn(name = "sensor_id")
     private Sensor sensor;
 
+    @Id
     @ManyToOne
-    @JoinColumn(name = "condition_id", nullable = false)
+    @JoinColumn(name = "condition_id")
     private Condition condition;
 }
