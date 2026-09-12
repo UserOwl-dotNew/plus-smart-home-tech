@@ -77,8 +77,8 @@ public class AggregationStarter {
                 kafkaClient.getProducer().flush();
 
             } finally {
-                    log.info("Закрываем консьюмер");
-                    kafkaClient.getConsumer().close();
+                log.info("Закрываем консьюмер");
+                kafkaClient.getConsumer().close();
                 log.info("Закрываем продюсер");
                 kafkaClient.getProducer().close();
             }

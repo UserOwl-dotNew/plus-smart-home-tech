@@ -10,5 +10,5 @@ option java_outer_classname = "HubRouterControllerProto";
 
 service HubRouterController {
     rpc handleDeviceAction (telemetry.messages.DeviceActionRequest)
-            returns (google.protobuf.Empty);
+    returns (google.protobuf.Empty);
 }
