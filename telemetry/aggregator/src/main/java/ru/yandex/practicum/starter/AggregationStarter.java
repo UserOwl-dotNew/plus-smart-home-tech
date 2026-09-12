@@ -55,9 +55,7 @@ public class AggregationStarter {
                 }
 
                 kafkaClient.getConsumer().commitAsync((offsets, exception) -> {
-                    if (exception != null) {
-                        log.warn("Ошибка во время фиксации оффсетов: {}", offsets, exception);
-                    }
+                    if (exception != null) log.warn("Ошибка во время фиксации оффсетов: {}", offsets, exception);
                 });
             }
 
