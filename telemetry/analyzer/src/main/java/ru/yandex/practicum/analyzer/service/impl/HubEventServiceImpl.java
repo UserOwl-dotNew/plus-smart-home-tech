@@ -13,8 +13,9 @@ import ru.yandex.practicum.analyzer.repository.SensorRepository;
 import ru.yandex.practicum.analyzer.service.HubEventService;
 import ru.yandex.practicum.kafka.telemetry.event.*;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -62,9 +63,8 @@ public class HubEventServiceImpl implements HubEventService {
 
             scenario.getActions().removeIf(sc ->
                     sc.getSensor().getId().equals(event.getId()));
-
-            scenarioRepository.save(scenario);
         }
+        scenarioRepository.saveAll(scenarios);
         sensorRepository.delete(sensor);
     }
 
@@ -84,18 +84,60 @@ public class HubEventServiceImpl implements HubEventService {
 
         scenario = scenarioRepository.save(scenario);
 
-        for (ScenarioConditionAvro conditionAvro : event.getConditions()) {
-            Condition condition = mapper.toCondition(conditionAvro);
-            condition = conditionRepository.save(condition);
+        /**
+         * Собираем все sensorIds
+         */
+        Set<String> sensorIds = new HashSet<>();
+        event.getConditions().forEach(c -> sensorIds.add(c.getSensorId()));
+        event.getActions().forEach(a -> sensorIds.add(a.getSensorId()));
 
-            Sensor sensor = sensorRepository.findByIdAndHubId(conditionAvro.getSensorId(), hubId)
-                    .orElseGet(() -> {
-                        Sensor newSensor = Sensor.builder()
-                                .id(conditionAvro.getSensorId())
-                                .hubId(hubId)
-                                .build();
-                        return sensorRepository.save(newSensor);
-                    });
+        /**
+         * Одним запросом находим все существующие сенсоры
+         */
+        List<Sensor> existingSensors = sensorRepository.findAllById(sensorIds);
+        Map<String, Sensor> sensorMap = existingSensors.stream()
+                .collect(Collectors.toMap(Sensor::getId, Function.identity()));
+
+        /**
+         * Создаем отсутствующие сенсоры
+         */
+        List<Sensor> newSensors = sensorIds.stream()
+                .filter(id -> !sensorMap.containsKey(id))
+                .map(id -> Sensor.builder().hubId(hubId).id(id).build())
+                .toList();
+        List<Sensor> savedSensors = sensorRepository.saveAll(newSensors);
+        savedSensors.forEach(s -> sensorMap.put(s.getId(), s));
+
+
+        /**
+         * Находим все условия
+         */
+        List<ScenarioConditionAvro> conditionAvros = event.getConditions();
+
+        /**
+         * Преобразуем все условия в entity и сохраняем в бд
+         */
+        List<Condition> conditions = conditionRepository.saveAll(conditionAvros.stream()
+                .map(mapper::toCondition)
+                .toList());
+
+        /**
+         * Находим все действия
+         */
+        List<DeviceActionAvro> actionAvros = event.getActions();
+
+        /**
+         * Преобразуем все действия в entity и сохраняем в бд
+         */
+        List<Action> actions = actionRepository.saveAll(actionAvros.stream()
+                .map(mapper::toAction)
+                .toList());
+
+        for (int i = 0; i < conditionAvros.size(); i++) {
+            ScenarioConditionAvro conditionAvro = conditionAvros.get(i);
+            Condition condition = conditions.get(i);
+            Sensor sensor = sensorMap.get(conditionAvro.getSensorId());
+
 
             ScenarioCondition scenarioCondition = ScenarioCondition.builder()
                     .scenario(scenario)
@@ -106,18 +148,10 @@ public class HubEventServiceImpl implements HubEventService {
             scenario.getConditions().add(scenarioCondition);
         }
 
-        for (DeviceActionAvro actionAvro : event.getActions()) {
-            Action action = mapper.toAction(actionAvro);
-            action = actionRepository.save(action);
-
-            Sensor sensor = sensorRepository.findByIdAndHubId(actionAvro.getSensorId(), hubId)
-                    .orElseGet(() -> {
-                        Sensor newSensor = Sensor.builder()
-                                .id(actionAvro.getSensorId())
-                                .hubId(hubId)
-                                .build();
-                        return sensorRepository.save(newSensor);
-                    });
+        for (int i = 0; i < actionAvros.size(); i++) {
+            DeviceActionAvro actionAvro = actionAvros.get(i);
+            Action action = actions.get(i);
+            Sensor sensor = sensorMap.get(actionAvro.getSensorId());
 
             ScenarioAction scenarioAction = ScenarioAction.builder()
                     .scenario(scenario)
