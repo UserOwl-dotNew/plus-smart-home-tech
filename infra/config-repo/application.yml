@@ -1,0 +1,9 @@
+logging:
+  level:
+    ru.yandex.practicum.telemetry: WARN
+    org:
+      springframework: ERROR
+      apache.kafka: WARN
+
+kafka:
+  bootstrap-servers: "localhost:9092"
