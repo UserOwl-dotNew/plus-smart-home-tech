@@ -43,7 +43,8 @@ services:
       POSTGRES_PASSWORD: 12345
       POSTGRES_DB: telemetry_analyzer
     volumes:
-      - ./docker/init-databases.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./docker/init-databases.sql:/docker-entrypoint-initdb.d/1-init.sql
+      - ./docker/schema.sql:/docker-entrypoint-initdb.d/2-schema.sql
     healthcheck:
       test: pg_isready -q -d $$POSTGRES_DB -U $$POSTGRES_USER
       timeout: 5s

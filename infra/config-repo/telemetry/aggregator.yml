@@ -1,0 +1,8 @@
+aggregator:
+  kafka:
+    consumer:
+      poll-timeout: 100ms
+
+spring:
+  application:
+    name: aggregator
