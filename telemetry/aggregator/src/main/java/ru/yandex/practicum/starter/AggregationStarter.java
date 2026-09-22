@@ -1,11 +1,11 @@
 package ru.yandex.practicum.starter;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.avro.specific.SpecificRecordBase;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.common.errors.WakeupException;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import ru.yandex.practicum.config.KafkaClient;
 import ru.yandex.practicum.kafka.telemetry.event.SensorEventAvro;
@@ -17,11 +17,11 @@ import java.util.List;
 /**
  * Класс AggregationStarter, ответственный за запуск агрегации данных.
  */
-@Slf4j
 @Component
 @RequiredArgsConstructor
 public class AggregationStarter {
 
+    private static final org.slf4j.Logger log = LoggerFactory.getLogger(SnapshotService.class);
     private static final Duration CONSUME_ATTEMPT_TIMEOUT = Duration.ofMillis(1000);
     private static final List<String> TOPICS = List.of("telemetry.sensors.v1");
 
