@@ -1,9 +1,9 @@
 package ru.yandex.practicum.service;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.avro.specific.SpecificRecordBase;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.config.KafkaClient;
 import ru.yandex.practicum.kafka.telemetry.event.SensorEventAvro;
@@ -15,10 +15,10 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
-@Slf4j
 @Service
 @RequiredArgsConstructor
 public class SnapshotService {
+    private static final org.slf4j.Logger log = LoggerFactory.getLogger(SnapshotService.class);
     private static final String TELEMETRY_SNAPSHOTS_V1 = "telemetry.snapshots.v1";
 
     private final KafkaClient kafkaClient;
@@ -28,7 +28,7 @@ public class SnapshotService {
      * Обработка события от датчика
      */
     public void processSensorEvent(String topic, int partition, long offset, SensorEventAvro event) {
-        log.debug("Обработка события: sensorId={}, hubId={}, topic={}, partition={}, offset={}",
+        log.info("Обработка события: sensorId={}, hubId={}, topic={}, partition={}, offset={}",
                 event.getId(), event.getHubId(), topic, partition, offset);
 
         updateState(event).ifPresent(snapshot -> {
