@@ -1,0 +1,7 @@
+package ru.yandex.practicum.product.exception;
+
+public class DuplicateException extends RuntimeException {
+    public DuplicateException(String message) {
+        super(message);
+    }
+}

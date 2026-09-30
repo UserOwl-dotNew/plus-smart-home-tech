@@ -14,3 +14,4 @@ spring:
             - file:./infra/config-repo
             - file:./infra/config-repo/telemetry
             - file:./infra/config-repo/discovery-server
+            - file:./infra/config-repo/commerce
