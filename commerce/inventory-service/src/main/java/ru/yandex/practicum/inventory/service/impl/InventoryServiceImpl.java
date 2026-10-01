@@ -8,6 +8,7 @@ import ru.yandex.practicum.inventory.dto.ReserveRequest;
 import ru.yandex.practicum.inventory.dto.ReserveResponse;
 import ru.yandex.practicum.inventory.dto.UpdateInventoryRequest;
 import ru.yandex.practicum.inventory.entity.Inventory;
+import ru.yandex.practicum.inventory.exception.DuplicateException;
 import ru.yandex.practicum.inventory.exception.InsufficientStockException;
 import ru.yandex.practicum.inventory.exception.NotFoundException;
 import ru.yandex.practicum.inventory.mapper.InventoryMapper;
@@ -42,9 +43,7 @@ public class InventoryServiceImpl implements InventoryService {
         Optional<Inventory> inventory = repository.findByProductId(request.productId());
 
         if (inventory.isPresent()) {
-            log.info("isPresent");
-            inventory.get().setQuantity(request.quantity());
-            log.info("inventory={}", inventory.get());
+            throw new DuplicateException("Inventory exists with productId=" + request.productId());
         } else {
             log.info("isEmpty");
             inventory = Optional.of(repository.save(mapper.toEntity(request)));
