@@ -1,0 +1,1713 @@
+# (Sprint 21) Smart Home Technologies API
+
+###
+# group: shopping-store
+# @name add Product To Shop
+//< {%
+    // TODO: migrate to HTTP Client Pre-request handler API
+    // const main = async () => {
+    
+    //     const api = new API(pm);
+    
+    //     const rnd = new RandomUtils();
+    
+    // 
+    
+    //     try {
+    
+    //         product = rnd.getProduct();
+    
+    //         pm.collectionVariables.set("product", product);
+    
+    //     } catch(err) {
+    
+    //         console.error("Ошибка при подготовке тестовых данных.", err);
+    
+    //     }
+    
+    // 
+    
+    //     pm.request.body.update({
+    
+    //         mode: 'raw',
+    
+    //         raw: JSON.stringify(product),
+    
+    //         options: { raw: { language: 'json' } }
+    
+    //     });
+    
+    // };
+    
+    // 
+    
+    // const interval = setInterval(() => {}, 1000);
+    
+    // 
+    
+    // setTimeout(async () => 
+    
+    //     {
+    
+    //         try {
+    
+    //             await main();
+    
+    //         } catch (e) {
+    
+    //             console.error(e);
+    
+    //         } finally {
+    
+    //             clearInterval(interval);
+    
+    //         }
+    
+    //     },  
+    
+    //     100 
+    
+    // );
+//%}
+PUT {{baseUrl}}{{shopping-store-port}}/api/v1/shopping-store
+Content-Type: application/json
+Accept: */*
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // pm.test("Код ответа 200 или 201", function () {
+
+    //     pm.expect(pm.response.code).to.be.oneOf([200, 201]);
+
+    // });
+
+    // 
+
+    // const product = pm.collectionVariables.get("product");
+
+    // 
+
+    // 
+
+    // pm.test("Проверка полей объекта product", function () {
+
+    //     const responseJson = pm.response.json();
+
+    // 
+
+    //     pm.expect(responseJson.productName).to.equal(product.productName);
+
+    //     pm.expect(responseJson.description).to.equal(product.description);
+
+    //     pm.expect(responseJson.imageSrc).to.equal(product.imageSrc);
+
+    //     pm.expect(responseJson.quantityState).to.equal(product.quantityState);
+
+    //     pm.expect(responseJson.productState).to.equal(product.productState);
+
+    //     pm.expect(responseJson.productCategory).to.equal(product.productCategory);
+
+    //     pm.expect(responseJson.price).to.equal(product.price);
+
+    // });
+%}
+
+###
+# group: shopping-store
+# @name get Product
+# Получить сведения по товару из БД.
+//< {%
+    // TODO: migrate to HTTP Client Pre-request handler API
+    // const main = async () => {
+    
+    //     const api = new API(pm);
+    
+    //     const rnd = new RandomUtils();
+    
+    // 
+    
+    //     try {
+    
+    //         product = rnd.getProduct();
+    
+    //         product = await api.addProduct(product);
+    
+    //         pm.collectionVariables.set("product_id", product.productId);
+    
+    //         pm.collectionVariables.set("product", product);
+    
+    //         
+    
+    //     } catch(err) {
+    
+    //         console.error("Ошибка при подготовке тестовых данных.", err);
+    
+    //     }
+    
+    // 
+    
+    // };
+    
+    // 
+    
+    // const interval = setInterval(() => {}, 1000);
+    
+    // 
+    
+    // setTimeout(async () => 
+    
+    //     {
+    
+    //         try {
+    
+    //             await main();
+    
+    //         } catch (e) {
+    
+    //             console.error(e);
+    
+    //         } finally {
+    
+    //             clearInterval(interval);
+    
+    //         }
+    
+    //     },  
+    
+    //     100 
+    
+    // );
+//%}
+GET {{baseUrl}}{{shopping-store-port}}/api/v1/shopping-store/{{product_id}}
+Accept: */*
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // pm.test("Код ответа 200", function () {
+
+    //     pm.expect(pm.response.code).to.be.equal(200);
+
+    // });
+
+    // 
+
+    // const product = pm.collectionVariables.get("product");
+
+    // 
+
+    // 
+
+    // pm.test("Проверка полей объекта product", function () {
+
+    //     const responseJson = pm.response.json();
+
+    // 
+
+    //     pm.expect(responseJson.productName).to.equal(product.productName);
+
+    //     pm.expect(responseJson.description).to.equal(product.description);
+
+    //     pm.expect(responseJson.imageSrc).to.equal(product.imageSrc);
+
+    //     pm.expect(responseJson.quantityState).to.equal(product.quantityState);
+
+    //     pm.expect(responseJson.productState).to.equal(product.productState);
+
+    //     pm.expect(responseJson.rating).to.equal(product.rating);
+
+    //     pm.expect(responseJson.productCategory).to.equal(product.productCategory);
+
+    //     pm.expect(responseJson.price).to.equal(product.price);
+
+    // });
+%}
+
+###
+# group: shopping-store
+# @name get Product by Category LIGHTING
+# Получить сведения по товару из БД.
+//< {%
+    // TODO: you can add here Pre-request handler
+//%}
+GET {{baseUrl}}{{shopping-store-port}}/api/v1/shopping-store?
+    category=LIGHTING
+Accept: */*
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // pm.test("Код ответа 200", function () {
+
+    //     pm.expect(pm.response.code).to.be.equal(200);
+
+    // });
+
+    //
+%}
+
+###
+# group: shopping-store
+# @name update Product
+//< {%
+    // TODO: migrate to HTTP Client Pre-request handler API
+    // const main = async () => {
+    
+    //     const api = new API(pm);
+    
+    //     const rnd = new RandomUtils();
+    
+    // 
+    
+    //     try {
+    
+    //         product = rnd.getProduct();
+    
+    //         product = await api.addProduct(product);
+    
+    // 
+    
+    //         new_product = {
+    
+    //             productId: product.productId,
+    
+    //             productName: "new_product_name",
+    
+    //             description: "new_product_description",
+    
+    //             imageSrc: "new/image/src",
+    
+    //             quantityState: "FEW",
+    
+    //             productState: "ACTIVE",
+    
+    //             productCategory: "CONTROL",
+    
+    //             price: 12.34
+    
+    //         }
+    
+    // 
+    
+    //         pm.collectionVariables.set("product", new_product);
+    
+    //     } catch(err) {
+    
+    //         console.error("Ошибка при подготовке тестовых данных.", err);
+    
+    //     }
+    
+    // 
+    
+    //     pm.request.body.update({
+    
+    //         mode: 'raw',
+    
+    //         raw: JSON.stringify(new_product),
+    
+    //         options: { raw: { language: 'json' } }
+    
+    //     });
+    
+    // };
+    
+    // 
+    
+    // const interval = setInterval(() => {}, 1000);
+    
+    // 
+    
+    // setTimeout(async () => 
+    
+    //     {
+    
+    //         try {
+    
+    //             await main();
+    
+    //         } catch (e) {
+    
+    //             console.error(e);
+    
+    //         } finally {
+    
+    //             clearInterval(interval);
+    
+    //         }
+    
+    //     },  
+    
+    //     100 
+    
+    // );
+//%}
+POST {{baseUrl}}{{shopping-store-port}}/api/v1/shopping-store
+Content-Type: application/json
+Accept: */*
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // pm.test("Код ответа 200 или 201", function () {
+
+    //     pm.expect(pm.response.code).to.be.oneOf([200, 201]);
+
+    // });
+
+    // 
+
+    // const product = pm.collectionVariables.get("product");
+
+    // 
+
+    // 
+
+    // pm.test("Проверка полей объекта product", function () {
+
+    //     const responseJson = pm.response.json();
+
+    // 
+
+    //     pm.expect(responseJson.productName).to.equal(product.productName);
+
+    //     pm.expect(responseJson.description).to.equal(product.description);
+
+    //     pm.expect(responseJson.imageSrc).to.equal(product.imageSrc);
+
+    //     pm.expect(responseJson.productCategory).to.equal(product.productCategory);
+
+    //     pm.expect(responseJson.price).to.equal(product.price);
+
+    // });
+%}
+
+###
+# group: shopping-store
+# @name remove Product
+# Удалить товар из ассортимента магазина. Функция для менеджерского состава.
+//< {%
+    // TODO: migrate to HTTP Client Pre-request handler API
+    // const main = async () => {
+    
+    //     const api = new API(pm);
+    
+    //     const rnd = new RandomUtils();
+    
+    // 
+    
+    //     try {
+    
+    //         product = rnd.getProduct();
+    
+    //         product.productState = "ACTIVE";
+    
+    //         product = await api.addProduct(product);
+    
+    // 
+    
+    //         pm.collectionVariables.set("product_id", product.productId);
+    
+    //     } catch(err) {
+    
+    //         console.error("Ошибка при подготовке тестовых данных.", err);
+    
+    //     }
+    
+    // 
+    
+    //     pm.request.body.update({
+    
+    //         mode: 'raw',
+    
+    //         raw: JSON.stringify(product.productId),
+    
+    //         options: { raw: { language: 'json' } }
+    
+    //     });
+    
+    // };
+    
+    // 
+    
+    // 
+    
+    // 
+    
+    // const interval = setInterval(() => {}, 1000);
+    
+    // 
+    
+    // setTimeout(async () => 
+    
+    //     {
+    
+    //         try {
+    
+    //             await main();
+    
+    //         } catch (e) {
+    
+    //             console.error(e);
+    
+    //         } finally {
+    
+    //             clearInterval(interval);
+    
+    //         }
+    
+    //     },  
+    
+    //     100 
+    
+    // );
+//%}
+POST {{baseUrl}}{{shopping-store-port}}/api/v1/shopping-store/removeProductFromStore
+Content-Type: application/json
+Accept: */*
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // pm.test("Код ответа 200 или 203", function () {
+
+    //     pm.expect(pm.response.code).to.be.oneOf([200, 203]);
+
+    // });
+
+    // 
+
+    // 
+
+    // const req = {
+
+    //     url: "http://localhost:" + pm.collectionVariables.get("shopping-store-port") + 
+
+    //         "/api/v1/shopping-store/" + pm.collectionVariables.get("product_id"),
+
+    //     method: "GET",
+
+    // };
+
+    // 
+
+    // pm.sendRequest(req, (error, response) => {
+
+    //     pm.test("Товар должен перейти в статус DEACTIVATE", function(){
+
+    //         pm.expect(response.json().productState).to.eql("DEACTIVATE");
+
+    //     });
+
+    // })
+
+    //
+%}
+
+###
+# group: shopping-store
+# @name set Product Quantity State
+# Установка статуса по товару. API вызывается со стороны склада.
+//< {%
+    // TODO: migrate to HTTP Client Pre-request handler API
+    // const main = async () => {
+    
+    //     const api = new API(pm);
+    
+    //     const rnd = new RandomUtils();
+    
+    // 
+    
+    //     try {
+    
+    //         product = rnd.getProduct();
+    
+    //         product.quantityState = "ENDED";
+    
+    //         product = await api.addProduct(product);
+    
+    // 
+    
+    //         pm.collectionVariables.set("product_id", product.productId);
+    
+    //         pm.collectionVariables.set("quantity_state", ["FEW", "ENOUGH", "MANY"][Math.floor(Math.random() * 3)]);
+    
+    //     } catch(err) {
+    
+    //         console.error("Ошибка при подготовке тестовых данных.", err);
+    
+    //     }
+    
+    // };
+    
+    // 
+    
+    // const interval = setInterval(() => {}, 1000);
+    
+    // 
+    
+    // setTimeout(async () => 
+    
+    //     {
+    
+    //         try {
+    
+    //             await main();
+    
+    //         } catch (e) {
+    
+    //             console.error(e);
+    
+    //         } finally {
+    
+    //             clearInterval(interval);
+    
+    //         }
+    
+    //     },  
+    
+    //     100 
+    
+    // );
+//%}
+POST {{baseUrl}}{{shopping-store-port}}/api/v1/shopping-store/quantityState?
+    productId={{product_id}}&
+    quantityState={{quantity_state}}
+Accept: */*
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // pm.test("Код ответа 200 или 201", function () {
+
+    //     pm.expect(pm.response.code).to.be.oneOf([200, 201]);
+
+    // });
+
+    // 
+
+    // 
+
+    // const req = {
+
+    //     url: "http://localhost:" + pm.collectionVariables.get("shopping-store-port") + 
+
+    //         "/api/v1/shopping-store/" + pm.collectionVariables.get("product_id"),
+
+    //     method: "GET",
+
+    // };
+
+    // 
+
+    // pm.sendRequest(req, (error, response) => {
+
+    //     pm.test("Проверка полей объекта product", function(){
+
+    //         pm.expect(response.json().quantityState).to.eql(pm.collectionVariables.get("quantity_state"));
+
+    //     });
+
+    // })
+
+    //
+%}
+
+###
+# group: shopping-store
+# @name get Products
+# Получение списка товаров по типу в пагинированном виде
+//< {%
+    // TODO: migrate to HTTP Client Pre-request handler API
+    // const main = async () => {
+    
+    //     const api = new API(pm);
+    
+    //     const rnd = new RandomUtils();
+    
+    // 
+    
+    //     try {
+    
+    //         product = {
+    
+    //             productName: "00000000",
+    
+    //             description: "product_description",
+    
+    //             imageSrc: "product/image/src",
+    
+    //             quantityState: "FEW",
+    
+    //             productState: "ACTIVE",
+    
+    //             productCategory: "CONTROL",
+    
+    //             price: 12.34
+    
+    //         };
+    
+    //         await api.addProduct(product);
+    
+    //         await api.addProduct(product);
+    
+    //         await api.addProduct(product);
+    
+    //         pm.collectionVariables.set("product", product);
+    
+    //     } catch(err) {
+    
+    //         console.error("Ошибка при подготовке тестовых данных.", err);
+    
+    //     }
+    
+    // };
+    
+    // 
+    
+    // const interval = setInterval(() => {}, 1000);
+    
+    // 
+    
+    // setTimeout(async () => 
+    
+    //     {
+    
+    //         try {
+    
+    //             await main();
+    
+    //         } catch (e) {
+    
+    //             console.error(e);
+    
+    //         } finally {
+    
+    //             clearInterval(interval);
+    
+    //         }
+    
+    //     },  
+    
+    //     100 
+    
+    // );
+//%}
+GET {{baseUrl}}{{shopping-store-port}}/api/v1/shopping-store?
+    category=CONTROL&
+    page=0&
+    size=10&
+    sort=productName
+Accept: */*
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // pm.test("Код ответа 200", function () {
+
+    //     pm.expect(pm.response.code).to.be.equal(200);
+
+    // });
+
+    // 
+
+    // const product = pm.collectionVariables.get("product");
+
+    // 
+
+    // 
+
+    // pm.test("Проверка возвращаемых значений", function () {
+
+    //     const responseJson = pm.response.json();
+
+    //     pm.expect(responseJson["content"][0].productName).to.equal(product.productName);
+
+    //     pm.expect(responseJson["content"][1].productName).to.equal(product.productName);
+
+    //     pm.expect(responseJson["content"][2].productName).to.equal(product.productName);
+
+    //     pm.expect(responseJson.sort[0].direction).to.equal("ASC");
+
+    //     pm.expect(responseJson.sort[0].property).to.equal("productName");
+
+    // });
+%}
+
+###
+# group: shopping-cart
+# @name add Product To Shopping Cart
+# Добавить товар в корзину.
+//< {%
+    // TODO: migrate to HTTP Client Pre-request handler API
+    // const main = async () => {
+    
+    //     const api = new API(pm);
+    
+    //     const rnd = new RandomUtils();
+    
+    // 
+    
+    // try {
+    
+    //     pm.collectionVariables.set("userName", rnd.getWord(10));
+    
+    //     product1 = rnd.getProductForWarehouse();
+    
+    //     product2 = rnd.getProductForWarehouse();
+    
+    //     await api.addProductToWarehouse(product1);        
+    
+    //     await api.addProductToWarehouse(product2);
+    
+    //     
+    
+    //     amount1 = Math.floor(Math.random() * 1000);
+    
+    //     amount2 = Math.floor(Math.random() * 1000);
+    
+    // 
+    
+    //     productList = {
+    
+    //         [product1.productId]: amount1, // Случайное число до 1000
+    
+    //         [product2.productId]: amount2  // Случайное число до 1000
+    
+    //     };
+    
+    //     
+    
+    //     pr1 = {
+    
+    //             "productId": product1.productId,
+    
+    //             "quantity": amount1
+    
+    //         }
+    
+    //     pr2 = {
+    
+    //             "productId": product2.productId,
+    
+    //             "quantity": amount2
+    
+    //         }
+    
+    // 
+    
+    //     await api.addQuantityOfProductsToWarehouse(pr1);
+    
+    //     await api.addQuantityOfProductsToWarehouse(pr2);
+    
+    // 
+    
+    //     console.log("Список продуктов", productList);
+    
+    //     pm.collectionVariables.set("productList", productList); // Сохраняем productList, если нужно
+    
+    // } catch (err) {
+    
+    //     console.error("Ошибка при подготовке тестовых данных.", err);
+    
+    // }
+    
+    // 
+    
+    //     pm.request.body.update({
+    
+    //         mode: 'raw',
+    
+    //         raw: JSON.stringify(productList),
+    
+    //         options: { raw: { language: 'json' } }
+    
+    //     });
+    
+    // };
+    
+    // 
+    
+    // const interval = setInterval(() => {}, 1000);
+    
+    // 
+    
+    // setTimeout(async () => 
+    
+    //     {
+    
+    //         try {
+    
+    //             await main();
+    
+    //         } catch (e) {
+    
+    //             console.error(e);
+    
+    //         } finally {
+    
+    //             clearInterval(interval);
+    
+    //         }
+    
+    //     },  
+    
+    //     100 
+    
+    // );
+//%}
+PUT {{baseUrl}}{{shopping-cart-port}}/api/v1/shopping-cart?
+    username={{userName}}
+Content-Type: application/json
+Accept: */*
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // pm.test("Код ответа 200 или 201", function () {
+
+    //     pm.expect(pm.response.code).to.be.oneOf([200, 201]);
+
+    // });
+
+    // 
+
+    // const productList = pm.collectionVariables.get("productList"); 
+
+    // const products = pm.response.json().products;
+
+    // 
+
+    // pm.test("Проверка наличия продуктов и валидности количества", function () {
+
+    //     let allKeysPresent = true;
+
+    //     let valuesValid = true;
+
+    //     for (key in productList) {
+
+    //         if (!products.hasOwnProperty(key)) {
+
+    //             allKeysPresent = false;
+
+    //             break;
+
+    //         }
+
+    //         if (products[key] < productList[key]) {
+
+    //             valuesValid = false;
+
+    //         }
+
+    //     }
+
+    // 
+
+    //     pm.expect(allKeysPresent).to.be.true;
+
+    //     pm.expect(valuesValid).to.be.true;
+
+    // });
+
+    //
+%}
+
+###
+# group: shopping-cart
+# @name get Shopping Cart
+# Получить актуальную корзину для авторизованного пользователя.
+//< {%
+    // TODO: migrate to HTTP Client Pre-request handler API
+    // const main = async () => {
+    
+    //     const api = new API(pm);
+    
+    //     const rnd = new RandomUtils();
+    
+    // 
+    
+    //     try {
+    
+    //         userName = rnd.getWord(10);
+    
+    //         pm.collectionVariables.set("userName", userName);
+    
+    // 
+    
+    //         product1 = rnd.getProductForWarehouse();
+    
+    //         await api.addProductToWarehouse(product1);
+    
+    //         amount = Math.floor(Math.random() * 1000)
+    
+    //         product = {
+    
+    //             "productId": product1.productId,
+    
+    //             "quantity": amount + 2
+    
+    //         }
+    
+    // 
+    
+    //         productList = {
+    
+    //             [product1.productId]: amount,
+    
+    //         };
+    
+    // 
+    
+    //         await api.addQuantityOfProductsToWarehouse(product);
+    
+    //         
+    
+    //         pm.collectionVariables.set("productList", productList);
+    
+    //         await api.addProductToShoppingCart(userName, productList)
+    
+    //     } catch(err) {
+    
+    //         console.error("Ошибка при подготовке тестовых данных.", err);
+    
+    //     }
+    
+    // 
+    
+    // };
+    
+    // 
+    
+    // const interval = setInterval(() => {}, 1000);
+    
+    // 
+    
+    // setTimeout(async () => 
+    
+    //     {
+    
+    //         try {
+    
+    //             await main();
+    
+    //         } catch (e) {
+    
+    //             console.error(e);
+    
+    //         } finally {
+    
+    //             clearInterval(interval);
+    
+    //         }
+    
+    //     },  
+    
+    //     100 
+    
+    // );
+//%}
+GET {{baseUrl}}{{shopping-cart-port}}/api/v1/shopping-cart?
+    username={{userName}}
+Accept: */*
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // pm.test("Код ответа 200", function () {
+
+    //     pm.expect(pm.response.code).to.be.oneOf([200]);
+
+    // });
+
+    // 
+
+    // const productList = pm.collectionVariables.get("productList"); 
+
+    // const products = pm.response.json().products;
+
+    // 
+
+    // pm.test("Проверка наличия продуктов и валидности количества", function () {
+
+    //     let allKeysPresent = true;
+
+    //     let valuesValid = true;
+
+    //     for (key in productList) {
+
+    // 
+
+    //         if (!products.hasOwnProperty(key)) {
+
+    //             allKeysPresent = false;
+
+    //             break;
+
+    //         }
+
+    //         if (products[key] != productList[key]) {
+
+    //             valuesValid = false;
+
+    //         }
+
+    //     }
+
+    // 
+
+    //     pm.expect(allKeysPresent).to.be.true;
+
+    //     pm.expect(valuesValid).to.be.true;
+
+    // });
+
+    //
+%}
+
+###
+# group: shopping-cart
+# @name change Product Quantity
+# Изменить количество товаров в корзине.
+//< {%
+    // TODO: migrate to HTTP Client Pre-request handler API
+    // const main = async () => {
+    
+    //     const api = new API(pm);
+    
+    //     const rnd = new RandomUtils();
+    
+    // 
+    
+    //     try {
+    
+    //         userName = rnd.getWord(10);
+    
+    //         pm.collectionVariables.set("userName", userName);
+    
+    // 
+    
+    //         product1 = rnd.getProductForWarehouse();
+    
+    //         await api.addProductToWarehouse(product1);
+    
+    //         amount = Math.floor(Math.random() * 1000)
+    
+    //         product = {
+    
+    //             "productId": product1.productId,
+    
+    //             "quantity": amount + 2
+    
+    //         }
+    
+    // 
+    
+    //         productList = {
+    
+    //             [product1.productId]: amount,
+    
+    //         };
+    
+    // 
+    
+    //         await api.addQuantityOfProductsToWarehouse(product);
+    
+    //         
+    
+    //         pm.collectionVariables.set("productList", productList);
+    
+    //         await api.addProductToShoppingCart(userName, productList)
+    
+    //         cart = await api.getShoppingCart(userName);
+    
+    //         pm.collectionVariables.set("cart", cart)
+    
+    //         changeQuantity = {
+    
+    //             "newQuantity": amount + 1,
+    
+    //             "productId": product1.productId
+    
+    //         }
+    
+    // 
+    
+    //         pm.request.body.update({
+    
+    //             mode: 'raw',
+    
+    //             raw: JSON.stringify(changeQuantity),
+    
+    //             options: { raw: { language: 'json' } }
+    
+    //         });
+    
+    //     } catch(err) {
+    
+    //         console.error("Ошибка при подготовке тестовых данных.", err);
+    
+    //     }
+    
+    // 
+    
+    // };
+    
+    // 
+    
+    // const interval = setInterval(() => {}, 1000);
+    
+    // 
+    
+    // setTimeout(async () => 
+    
+    //     {
+    
+    //         try {
+    
+    //             await main();
+    
+    //         } catch (e) {
+    
+    //             console.error(e);
+    
+    //         } finally {
+    
+    //             clearInterval(interval);
+    
+    //         }
+    
+    //     },  
+    
+    //     100 
+    
+    // );
+//%}
+POST {{baseUrl}}{{shopping-cart-port}}/api/v1/shopping-cart/change-quantity?
+    username={{userName}}
+Content-Type: application/json
+Accept: */*
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // pm.test("Код ответа 200, 201 или 204", function () {
+
+    //     pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);
+
+    // });
+
+    // 
+
+    // const cart = pm.collectionVariables.get("cart"); 
+
+    // const newCart = pm.response.json();
+
+    // 
+
+    // pm.test("Проверка полей новой корзины", function () {
+
+    // 
+
+    //     pm.expect(newCart.shoppingCartId).to.equal(cart.shoppingCartId);
+
+    // 
+
+    //     const productId = Object.keys(cart.products)[0];
+
+    //     const expectedQuantity = cart.products[productId];
+
+    //     const actualQuantity = newCart.products[productId];
+
+    // 
+
+    //     pm.expect(actualQuantity).to.equal(expectedQuantity + 1);
+
+    // });
+
+    //
+%}
+
+###
+# group: shopping-cart
+# @name remove From Shopping Cart
+# Изменить состав товаров в корзине, т.е. удалить другие.
+//< {%
+    // TODO: migrate to HTTP Client Pre-request handler API
+    // const main = async () => {
+    
+    //     const api = new API(pm);
+    
+    //     const rnd = new RandomUtils();
+    
+    // 
+    
+    //     try {
+    
+    //         userName = rnd.getWord(10);
+    
+    //         pm.collectionVariables.set("userName", userName);
+    
+    // 
+    
+    //         product1 = rnd.getProductForWarehouse();
+    
+    //         await api.addProductToWarehouse(product1);
+    
+    //         amount = Math.floor(Math.random() * 1000)
+    
+    //         product = {
+    
+    //             "productId": product1.productId,
+    
+    //             "quantity": amount + 2
+    
+    //         }
+    
+    // 
+    
+    //         productList = {
+    
+    //             [product1.productId]: amount
+    
+    //         };
+    
+    // 
+    
+    //         await api.addQuantityOfProductsToWarehouse(product);
+    
+    //         
+    
+    //         pm.collectionVariables.set("productList", productList);
+    
+    //         await api.addProductToShoppingCart(userName, productList)
+    
+    //         cart = await api.getShoppingCart(userName);
+    
+    //         pm.collectionVariables.set("cart", cart)
+    
+    //         changeQuantity = [product1.productId]
+    
+    //         
+    
+    // 
+    
+    //         pm.request.body.update({
+    
+    //             mode: 'raw',
+    
+    //             raw: JSON.stringify(changeQuantity),
+    
+    //             options: { raw: { language: 'json' } }
+    
+    //         });
+    
+    //     } catch(err) {
+    
+    //         console.error("Ошибка при подготовке тестовых данных.", err);
+    
+    //     }
+    
+    // 
+    
+    // };
+    
+    // 
+    
+    // const interval = setInterval(() => {}, 1000);
+    
+    // 
+    
+    // setTimeout(async () => 
+    
+    //     {
+    
+    //         try {
+    
+    //             await main();
+    
+    //         } catch (e) {
+    
+    //             console.error(e);
+    
+    //         } finally {
+    
+    //             clearInterval(interval);
+    
+    //         }
+    
+    //     },  
+    
+    //     100 
+    
+    // );
+//%}
+POST {{baseUrl}}{{shopping-cart-port}}/api/v1/shopping-cart/remove?
+    username={{userName}}
+Content-Type: application/json
+Accept: */*
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // pm.test("Код ответа 200, 201 или 204", function () {
+
+    //     pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);
+
+    // });
+
+    // 
+
+    // const cart = pm.collectionVariables.get("cart"); 
+
+    // const newCart = pm.response.json();
+
+    // 
+
+    // pm.test("Проверка полей новой корзины", function () {
+
+    // 
+
+    //     pm.expect(newCart.shoppingCartId).to.equal(cart.shoppingCartId);
+
+    // 
+
+    //     pm.expect(newCart.products).to.eql({});
+
+    // });
+
+    //
+%}
+
+###
+# group: shopping-cart
+# @name deactivate Current Shopping Cart
+# Деактивация корзины товаров для пользователя.
+//< {%
+    // TODO: migrate to HTTP Client Pre-request handler API
+    // const main = async () => {
+    
+    //     const api = new API(pm);
+    
+    //     const rnd = new RandomUtils();
+    
+    // 
+    
+    //     try {
+    
+    //         userName = rnd.getWord(10);
+    
+    //         pm.collectionVariables.set("userName", userName);
+    
+    // 
+    
+    //         product1 = rnd.getProductForWarehouse();
+    
+    //         await api.addProductToWarehouse(product1);
+    
+    // 
+    
+    //         amount = Math.floor(Math.random() * 1000)
+    
+    //         product = {
+    
+    //             "productId": product1.productId,
+    
+    //             "quantity": amount + 2
+    
+    //         }
+    
+    // 
+    
+    //         await api.addQuantityOfProductsToWarehouse(product);
+    
+    // 
+    
+    //         productList = {
+    
+    //             [product1.productId]: amount,
+    
+    //         };
+    
+    //         pm.collectionVariables.set("productList", productList);
+    
+    //         await api.addProductToShoppingCart(userName, productList)
+    
+    // 
+    
+    //         cart = await api.getShoppingCart(userName);
+    
+    //         pm.collectionVariables.set("cart", cart)
+    
+    // 
+    
+    //     } catch(err) {
+    
+    //         console.error("Ошибка при подготовке тестовых данных.", err);
+    
+    //     }
+    
+    // 
+    
+    // };
+    
+    // 
+    
+    // const interval = setInterval(() => {}, 1000);
+    
+    // 
+    
+    // setTimeout(async () => 
+    
+    //     {
+    
+    //         try {
+    
+    //             await main();
+    
+    //         } catch (e) {
+    
+    //             console.error(e);
+    
+    //         } finally {
+    
+    //             clearInterval(interval);
+    
+    //         }
+    
+    //     },  
+    
+    //     100 
+    
+    // );
+//%}
+DELETE {{baseUrl}}{{shopping-cart-port}}/api/v1/shopping-cart?
+    username={{userName}}
+Accept: */*
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // pm.test("Код ответа 200, 201, 203, 204", function () {
+
+    //     pm.expect(pm.response.code).to.be.oneOf([200, 201, 203, 204]);
+
+    // });
+
+    //
+%}
+
+###
+# group: warehouse
+# @name get Warehouse Address
+# Предоставить адрес склада для расчёта доставки.
+GET {{baseUrl}}{{warehouse-port}}/api/v1/warehouse/address
+Accept: */*
+Content-Type: application/json
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // pm.test("Код ответа 200", function () {
+
+    //     pm.response.to.have.status(200);
+
+    // });
+
+    // 
+
+    // const expectedFields = [
+
+    //     "country",
+
+    //     "city",
+
+    //     "street",
+
+    //     "house",
+
+    //     "flat"
+
+    // ];
+
+    // 
+
+    // pm.test("Проверка наличия всех полей в ответе", function () {
+
+    //     const responseJson = pm.response.json();
+
+    //     
+
+    //     expectedFields.forEach(field => {
+
+    //         pm.expect(responseJson).to.have.property(field);
+
+    //     });
+
+    // });
+
+    //
+%}
+
+###
+# group: warehouse
+# @name new Product In Warehouse
+# Добавить новый товар на склад.
+//< {%
+    // TODO: migrate to HTTP Client Pre-request handler API
+    // const main = async () => {
+    
+    //     const api = new API(pm);
+    
+    //     const rnd = new RandomUtils();
+    
+    // 
+    
+    //     try {
+    
+    //         product = rnd.getProductForWarehouse();
+    
+    //         pm.collectionVariables.set("product", product);
+    
+    //     } catch(err) {
+    
+    //         console.error("Ошибка при подготовке тестовых данных.", err);
+    
+    //     }
+    
+    // 
+    
+    //     pm.request.body.update({
+    
+    //         mode: 'raw',
+    
+    //         raw: JSON.stringify(product),
+    
+    //         options: { raw: { language: 'json' } }
+    
+    //     });
+    
+    // };
+    
+    // 
+    
+    // const interval = setInterval(() => {}, 1000);
+    
+    // 
+    
+    // setTimeout(async () => 
+    
+    //     {
+    
+    //         try {
+    
+    //             await main();
+    
+    //         } catch (e) {
+    
+    //             console.error(e);
+    
+    //         } finally {
+    
+    //             clearInterval(interval);
+    
+    //         }
+    
+    //     },  
+    
+    //     100 
+    
+    // );
+//%}
+PUT {{baseUrl}}{{warehouse-port}}/api/v1/warehouse
+Content-Type: application/json
+Accept: */*
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // pm.test("Код ответа 200 или 201", function () {
+
+    //     pm.expect(pm.response.code).to.be.oneOf([200, 201]);
+
+    // });
+%}
+
+###
+# group: warehouse
+# @name add Product To Warehouse
+# Принять товар на склад.
+//< {%
+    // TODO: migrate to HTTP Client Pre-request handler API
+    // const main = async () => {
+    
+    //     const api = new API(pm);
+    
+    //     const rnd = new RandomUtils();
+    
+    // 
+    
+    //     try {
+    
+    //         product = rnd.getProductForWarehouse();
+    
+    //         await api.addProductToWarehouse(product);
+    
+    //         product = {
+    
+    //             "productId": product.productId,
+    
+    //             "quantity": Number(pm.variables.replaceIn('{{$randomInt}}'))
+    
+    //         }
+    
+    //         pm.collectionVariables.set("product", product);
+    
+    //     } catch(err) {
+    
+    //         console.error("Ошибка при подготовке тестовых данных.", err);
+    
+    //     }
+    
+    // 
+    
+    //     pm.request.body.update({
+    
+    //         mode: 'raw',
+    
+    //         raw: JSON.stringify(product),
+    
+    //         options: { raw: { language: 'json' } }
+    
+    //     });
+    
+    // };
+    
+    // 
+    
+    // const interval = setInterval(() => {}, 1000);
+    
+    // 
+    
+    // setTimeout(async () => 
+    
+    //     {
+    
+    //         try {
+    
+    //             await main();
+    
+    //         } catch (e) {
+    
+    //             console.error(e);
+    
+    //         } finally {
+    
+    //             clearInterval(interval);
+    
+    //         }
+    
+    //     },  
+    
+    //     100 
+    
+    // );
+//%}
+POST {{baseUrl}}{{warehouse-port}}/api/v1/warehouse/add
+Content-Type: application/json
+Accept: */*
+
+> {%
+    // TODO: migrate to HTTP Client Response handler API
+    // pm.test("Код ответа 200 или 201", function () {
+
+    //     pm.expect(pm.response.code).to.be.oneOf([200, 201]);
+
+    // });
+%}

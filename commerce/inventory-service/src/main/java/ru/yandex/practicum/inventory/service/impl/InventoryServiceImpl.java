@@ -51,7 +51,7 @@ public class InventoryServiceImpl implements InventoryService {
             log.info("inventory={}", inventory.get());
         }
 
-        return mapper.toDto(inventory.get());
+        return mapper.toDto(repository.save(inventory.get()));
     }
 
     @Override
