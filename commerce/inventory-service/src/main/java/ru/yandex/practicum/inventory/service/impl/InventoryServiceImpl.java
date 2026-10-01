@@ -43,7 +43,7 @@ public class InventoryServiceImpl implements InventoryService {
         Optional<Inventory> inventory = repository.findByProductId(request.productId());
 
         if (inventory.isPresent()) {
-            throw new DuplicateException("Inventory exists with productId=" + request.productId());
+            throw new IllegalArgumentException("Inventory exists with productId=" + request.productId());
         } else {
             log.info("isEmpty");
             inventory = Optional.of(repository.save(mapper.toEntity(request)));
