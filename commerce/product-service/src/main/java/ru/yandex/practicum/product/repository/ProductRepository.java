@@ -24,5 +24,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     )
     List<Product> findAllByTitle(@Param("name") String title);
 
+    @Query("SELECT p " +
+            "FROM Product p " +
+            "JOIN FETCH p.category " +
+            "WHERE p.active IS TRUE")
     List<Product> findAllActiveTrue();
 }
