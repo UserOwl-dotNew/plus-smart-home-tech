@@ -24,7 +24,7 @@ public class GlobalExceptionHandler {
         return new ErrorResponse(HttpStatus.NOT_FOUND.value(), e.getMessage());
     }
 
-    @ExceptionHandler(InsufficientStockException.class)
+    @ExceptionHandler({InsufficientStockException.class})
     @ResponseStatus(HttpStatus.CONFLICT)
     public ErrorResponse handleInsufficientStock(InsufficientStockException e) {
         log.warn("Недостаточно товара: {}", e.getMessage());
