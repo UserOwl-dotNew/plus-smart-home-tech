@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS orders
     status         VARCHAR,
     status_details VARCHAR,
     created_at     TIMESTAMP,
-    total_price DECIMAL
+    total_price    DECIMAL
 );
 
 CREATE TABLE IF NOT EXISTS order_items

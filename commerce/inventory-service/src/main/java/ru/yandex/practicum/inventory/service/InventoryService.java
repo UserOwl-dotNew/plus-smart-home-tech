@@ -10,6 +10,12 @@ import ru.yandex.practicum.inventory.dto.UpdateInventoryRequest;
 import java.util.List;
 
 public interface InventoryService {
+
+    /**
+     * Получить все товары
+     *
+     * @return - список dto
+     */
     List<InventoryDto> getInventories();
 
     /**

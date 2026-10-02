@@ -12,8 +12,8 @@ public class InventoryMapper {
         return new InventoryDto(
                 inventory.getId(),
                 inventory.getProductId(),
-                inventory.getQuantity(),
-                inventory.getReservedQuantity(),
+                inventory.getQuantity() == null ? 0 : inventory.getQuantity(),
+                inventory.getReservedQuantity() == null ? 0 : inventory.getReservedQuantity(),
                 inventory.getAvailableQuantity()
         );
     }
@@ -22,6 +22,7 @@ public class InventoryMapper {
         return Inventory.builder()
                 .productId(request.productId())
                 .quantity(request.quantity())
+                .reservedQuantity(0)
                 .build();
     }
 

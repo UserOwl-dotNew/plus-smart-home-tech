@@ -17,6 +17,9 @@ public class Inventory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    /**
+     * Id товара
+     */
     @Column(name = "product_id", nullable = false)
     private Long productId;
 
@@ -24,15 +27,13 @@ public class Inventory {
      * Общее количество товара на складе
      */
     @Column(name = "quantity")
-    @Builder.Default
-    private Integer quantity = 0;
+    private Integer quantity;
 
     /**
      * Зарезервированное количество
      */
     @Column(name = "reserved_quantity")
-    @Builder.Default
-    private Integer reservedQuantity = 0;
+    private Integer reservedQuantity;
 
     @Version
     private Long version;
