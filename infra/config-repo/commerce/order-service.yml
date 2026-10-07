@@ -36,8 +36,8 @@ spring:
             connectTimeout: 2000
             readTimeout: 3000
           product-service:
-            loggerLevel: basic
+            loggerLevel: full
 
 logging:
   level:
-    ru.yandex.practicum.order.feign.InventoryClient: DEBUG
+    ru.yandex.practicum.order.feign.InventoryClient: INFO

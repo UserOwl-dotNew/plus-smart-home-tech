@@ -3,6 +3,7 @@ package ru.yandex.practicum.inventory.service.impl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.yandex.practicum.inventory.dto.InventoryDto;
 import ru.yandex.practicum.inventory.dto.ReserveRequest;
 import ru.yandex.practicum.inventory.dto.ReserveResponse;
@@ -20,6 +21,7 @@ import java.util.Optional;
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class InventoryServiceImpl implements InventoryService {
 
     private final InventoryRepository repository;
@@ -38,6 +40,7 @@ public class InventoryServiceImpl implements InventoryService {
     }
 
     @Override
+    @Transactional
     public InventoryDto createInventory(UpdateInventoryRequest request) {
         Optional<Inventory> inventory = repository.findByProductId(request.productId());
 
@@ -53,6 +56,7 @@ public class InventoryServiceImpl implements InventoryService {
     }
 
     @Override
+    @Transactional
     public InventoryDto updateInventory(UpdateInventoryRequest request) {
         Inventory inventory = repository.findByProductId(request.productId()).orElseThrow(
                 () -> new NotFoundException("Inventory not exists with productId=" + request.productId())
@@ -64,6 +68,7 @@ public class InventoryServiceImpl implements InventoryService {
     }
 
     @Override
+    @Transactional
     public ReserveResponse createReserve(ReserveRequest request) {
         Inventory inventory = repository.findByProductId(request.productId()).orElseThrow(
                 () -> new NotFoundException("Inventory not exists with productId=" + request.productId())
@@ -79,6 +84,7 @@ public class InventoryServiceImpl implements InventoryService {
     }
 
     @Override
+    @Transactional
     public ReserveResponse deleteReserve(ReserveRequest request) {
         Inventory inventory = repository.findByProductId(request.productId()).orElseThrow(
                 () -> new NotFoundException("Inventory not exists with productId=" + request.productId())

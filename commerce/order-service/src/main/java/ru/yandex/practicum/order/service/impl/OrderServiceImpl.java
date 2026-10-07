@@ -16,6 +16,7 @@ import ru.yandex.practicum.order.feign.InventoryClient;
 import ru.yandex.practicum.order.feign.ProductClient;
 import ru.yandex.practicum.order.mapper.OrderMapper;
 import ru.yandex.practicum.order.repository.OrderRepository;
+import ru.yandex.practicum.order.service.OrderSaver;
 import ru.yandex.practicum.order.service.OrderService;
 
 import java.math.BigDecimal;
@@ -35,6 +36,7 @@ public class OrderServiceImpl implements OrderService {
     private final ProductClient productClient;
     private final OrderRepository orderRepository;
     private final OrderMapper mapper;
+    private final OrderSaver orderSaver;
 
     @Override
     public OrderDto findById(Long id) {
@@ -59,6 +61,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @Transactional
     public OrderDto createOrder(CreateOrderRequest request) {
         Map<Long, ProductDto> products;
         try {
@@ -125,8 +128,9 @@ public class OrderServiceImpl implements OrderService {
 
             orderItems.forEach(order::addOrderItem);
 
+            order = orderSaver.save(order);
 
-            return mapper.toDto(orderRepository.save(order));
+            return mapper.toDto(order);
         } catch (Exception e) {
             reserved.forEach(r -> {
                 try {
