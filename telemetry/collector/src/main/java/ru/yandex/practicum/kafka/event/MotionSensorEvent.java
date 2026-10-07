@@ -5,6 +5,8 @@ import lombok.Setter;
 import lombok.ToString;
 import ru.yandex.practicum.kafka.enums.SensorEventType;
 
+import static ru.yandex.practicum.kafka.enums.SensorEventType.MOTION_SENSOR_EVENT;
+
 /*
  * Событие датчика движения.
  */
@@ -18,6 +20,6 @@ public class MotionSensorEvent extends SensorEvent {
 
     @Override
     public SensorEventType getType() {
-        return SensorEventType.MOTION_SENSOR_EVENT;
+        return MOTION_SENSOR_EVENT;
     }
 }

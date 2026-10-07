@@ -1,0 +1,8 @@
+### Запрос на получение параметров для aggregator
+GET http://localhost:8888/aggregator/default
+
+### Запрос на получение параметров для analyzer
+GET http://localhost:8888/analyzer/default
+
+### Запрос на получение параметров для collector
+GET http://localhost:8888/collector/default

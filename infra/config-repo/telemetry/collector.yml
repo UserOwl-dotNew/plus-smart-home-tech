@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: collector
+
+grpc:
+  server:
+    port: 59091

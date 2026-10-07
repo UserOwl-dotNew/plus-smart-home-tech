@@ -5,6 +5,8 @@ import lombok.Setter;
 import lombok.ToString;
 import ru.yandex.practicum.kafka.enums.SensorEventType;
 
+import static ru.yandex.practicum.kafka.enums.SensorEventType.SWITCH_SENSOR_EVENT;
+
 /*
  * Событие датчика переключателя, содержащее информацию о текущем состоянии переключателя.
  */
@@ -16,6 +18,6 @@ public class SwitchSensorEvent extends SensorEvent {
 
     @Override
     public SensorEventType getType() {
-        return SensorEventType.SWITCH_SENSOR_EVENT;
+        return SWITCH_SENSOR_EVENT;
     }
 }
