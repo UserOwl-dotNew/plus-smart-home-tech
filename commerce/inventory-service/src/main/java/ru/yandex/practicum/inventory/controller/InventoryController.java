@@ -57,10 +57,18 @@ public class InventoryController {
     }
 
     @PostMapping("/reserve")
-    public ReserveResponse addReserve(@RequestBody @Valid ReserveRequest request) {
+    public ReserveResponse reserve(@RequestBody @Valid ReserveRequest request) {
         log.info("POST /api/inventory/reserve - запрос на резервирование: {}", request);
         ReserveResponse result = service.createReserve(request);
         log.info("POST /api/inventory/reserve - результат резервирования: {}", result);
+        return result;
+    }
+
+    @PostMapping("/release")
+    public ReserveResponse release(@RequestBody @Valid ReserveRequest request) {
+        log.info("POST /api/inventory/release - запрос на снятие резерва: {}", request);
+        ReserveResponse result = service.createReserve(request);
+        log.info("POST /api/inventory/release - результат снятия резерва: {}", result);
         return result;
     }
 }

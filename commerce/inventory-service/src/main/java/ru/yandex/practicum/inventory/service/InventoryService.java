@@ -49,4 +49,12 @@ public interface InventoryService {
      * @return - dto резервирования
      */
     ReserveResponse createReserve(@Valid ReserveRequest request);
+
+    /**
+     * Снять резервирование товара
+     *
+     * @param request - запрос, содержащий id и желаемое количество товара, которое необходимо снять с зарезервирования
+     * @return - dto резервирования
+     */
+    ReserveResponse deleteReserve(@Valid ReserveRequest request);
 }

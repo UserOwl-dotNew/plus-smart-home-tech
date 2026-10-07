@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import ru.yandex.practicum.product.entity.Product;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
@@ -29,4 +30,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
             "JOIN FETCH p.category " +
             "WHERE p.active IS TRUE")
     List<Product> findAllActiveTrue();
+
+    @Query("SELECT p " +
+            "FROM Product p " +
+            "WHERE p.active IS TRUE")
+    Optional<Product> findByIdAndActive(Long id);
 }

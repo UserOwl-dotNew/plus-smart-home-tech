@@ -24,3 +24,20 @@ spring:
     locations: classpath:db/migration
     baseline-on-migrate: true
     baseline-version: 0
+
+  cloud:
+    openfeign:
+      client:
+        config:
+          default:
+            connectTimeout: 1000
+            readTimeout: 2000
+          inventory-service:
+            connectTimeout: 2000
+            readTimeout: 3000
+          product-service:
+            loggerLevel: basic
+
+logging:
+  level:
+    ru.yandex.practicum.order.feign.InventoryClient: DEBUG

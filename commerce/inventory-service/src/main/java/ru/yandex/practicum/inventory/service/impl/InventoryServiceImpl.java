@@ -77,4 +77,19 @@ public class InventoryServiceImpl implements InventoryService {
 
         return mapper.toReserveResponse(repository.save(inventory));
     }
+
+    @Override
+    public ReserveResponse deleteReserve(ReserveRequest request) {
+        Inventory inventory = repository.findByProductId(request.productId()).orElseThrow(
+                () -> new NotFoundException("Inventory not exists with productId=" + request.productId())
+        );
+
+        if (inventory.getReservedQuantity() < request.quantity()) {
+            throw new InsufficientStockException("Reserve quantity = " + inventory.getReservedQuantity() + " you not reserve " + request.quantity());
+        }
+
+        inventory.setReservedQuantity(inventory.getReservedQuantity() - request.quantity());
+
+        return mapper.toReserveResponse(repository.save(inventory));
+    }
 }
