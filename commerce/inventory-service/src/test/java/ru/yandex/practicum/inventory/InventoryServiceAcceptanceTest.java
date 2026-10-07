@@ -15,9 +15,7 @@ import ru.yandex.practicum.inventory.dto.UpdateInventoryRequest;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -54,8 +52,8 @@ class InventoryServiceAcceptanceTest {
                 .isEqualTo(10);
 
         MvcResult updateResponse = mvc.perform(put("/api/inventory")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(json.writeValueAsString(new UpdateInventoryRequest(productId, 15))))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(json.writeValueAsString(new UpdateInventoryRequest(productId, 15))))
                 .andReturn();
 
         assertThat(status(updateResponse))
@@ -118,8 +116,8 @@ class InventoryServiceAcceptanceTest {
 
     private MvcResult postJson(String url, Object body) throws Exception {
         return mvc.perform(post(url)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(json.writeValueAsString(body)))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(json.writeValueAsString(body)))
                 .andReturn();
     }
 

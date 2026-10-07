@@ -6,6 +6,8 @@ spring:
 logging:
   level:
     ru.yandex.practicum.telemetry: WARN
+    ru.yandex.practicum.product: DEBUG
+    ru.yandex.practicum.inventory: INFO
     org:
       springframework: ERROR
       apache.kafka: WARN

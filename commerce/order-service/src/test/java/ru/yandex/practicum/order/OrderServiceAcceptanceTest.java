@@ -75,7 +75,7 @@ class OrderServiceAcceptanceTest {
                 .isEqualTo("acceptance-buyer@example.com");
 
         MvcResult byEmailResponse = mvc.perform(get("/api/orders/by-email")
-                .param("email", "acceptance-buyer@example.com"))
+                        .param("email", "acceptance-buyer@example.com"))
                 .andReturn();
 
         assertThat(status(byEmailResponse))
@@ -107,8 +107,8 @@ class OrderServiceAcceptanceTest {
 
     private MvcResult postJson(String url, Object body) throws Exception {
         return mvc.perform(post(url)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(json.writeValueAsString(body)))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(json.writeValueAsString(body)))
                 .andReturn();
     }
 
