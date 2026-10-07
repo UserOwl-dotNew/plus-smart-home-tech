@@ -67,7 +67,7 @@ public class InventoryController {
     @PostMapping("/release")
     public ReserveResponse release(@RequestBody @Valid ReserveRequest request) {
         log.info("POST /api/inventory/release - запрос на снятие резерва: {}", request);
-        ReserveResponse result = service.createReserve(request);
+        ReserveResponse result = service.deleteReserve(request);
         log.info("POST /api/inventory/release - результат снятия резерва: {}", result);
         return result;
     }
