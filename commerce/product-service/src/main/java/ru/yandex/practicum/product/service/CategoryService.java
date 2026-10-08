@@ -10,5 +10,7 @@ public interface CategoryService {
 
     CategoryDto findCategoryById(Long id);
 
+    Boolean existsById(Long id);
+
     CategoryDto createCategory(CreateCategoryRequest request);
 }

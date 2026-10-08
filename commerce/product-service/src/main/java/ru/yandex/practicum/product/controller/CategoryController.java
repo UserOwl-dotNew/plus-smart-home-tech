@@ -38,6 +38,14 @@ public class CategoryController {
         return result;
     }
 
+    @GetMapping("/exists/{id}")
+    public Boolean existsById(@PathVariable @Positive Long id) {
+        log.info("GET /api/categories/exists/{} - запрос на существование категории", id);
+        Boolean result = categoryService.existsById(id);
+        log.info("GET /api/categories/exists/{} - категория найдена: {}", id, result);
+        return result;
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public CategoryDto create(@RequestBody @Valid CreateCategoryRequest request) {

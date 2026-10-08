@@ -33,6 +33,12 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public Boolean existsById(Long id) {
+        if (!repository.existsById(id)) throw new NotFoundException("Category not exists with id: " + id);
+        return true;
+    }
+
+    @Override
     @Transactional
     public CategoryDto createCategory(CreateCategoryRequest request) {
         if (repository.existsByName(request.name())) {
