@@ -1,1713 +1,348 @@
-# (Sprint 21) Smart Home Technologies API
-
-###
-# group: shopping-store
-# @name add Product To Shop
-//< {%
-    // TODO: migrate to HTTP Client Pre-request handler API
-    // const main = async () => {
-    
-    //     const api = new API(pm);
-    
-    //     const rnd = new RandomUtils();
-    
-    // 
-    
-    //     try {
-    
-    //         product = rnd.getProduct();
-    
-    //         pm.collectionVariables.set("product", product);
-    
-    //     } catch(err) {
-    
-    //         console.error("Ошибка при подготовке тестовых данных.", err);
-    
-    //     }
-    
-    // 
-    
-    //     pm.request.body.update({
-    
-    //         mode: 'raw',
-    
-    //         raw: JSON.stringify(product),
-    
-    //         options: { raw: { language: 'json' } }
-    
-    //     });
-    
-    // };
-    
-    // 
-    
-    // const interval = setInterval(() => {}, 1000);
-    
-    // 
-    
-    // setTimeout(async () => 
-    
-    //     {
-    
-    //         try {
-    
-    //             await main();
-    
-    //         } catch (e) {
-    
-    //             console.error(e);
-    
-    //         } finally {
-    
-    //             clearInterval(interval);
-    
-    //         }
-    
-    //     },  
-    
-    //     100 
-    
-    // );
-//%}
-PUT {{baseUrl}}{{shopping-store-port}}/api/v1/shopping-store
-Content-Type: application/json
-Accept: */*
-
-> {%
-    // TODO: migrate to HTTP Client Response handler API
-    // pm.test("Код ответа 200 или 201", function () {
-
-    //     pm.expect(pm.response.code).to.be.oneOf([200, 201]);
-
-    // });
-
-    // 
-
-    // const product = pm.collectionVariables.get("product");
-
-    // 
-
-    // 
-
-    // pm.test("Проверка полей объекта product", function () {
-
-    //     const responseJson = pm.response.json();
-
-    // 
-
-    //     pm.expect(responseJson.productName).to.equal(product.productName);
-
-    //     pm.expect(responseJson.description).to.equal(product.description);
-
-    //     pm.expect(responseJson.imageSrc).to.equal(product.imageSrc);
-
-    //     pm.expect(responseJson.quantityState).to.equal(product.quantityState);
-
-    //     pm.expect(responseJson.productState).to.equal(product.productState);
-
-    //     pm.expect(responseJson.productCategory).to.equal(product.productCategory);
-
-    //     pm.expect(responseJson.price).to.equal(product.price);
-
-    // });
-%}
-
-###
-# group: shopping-store
-# @name get Product
-# Получить сведения по товару из БД.
-//< {%
-    // TODO: migrate to HTTP Client Pre-request handler API
-    // const main = async () => {
-    
-    //     const api = new API(pm);
-    
-    //     const rnd = new RandomUtils();
-    
-    // 
-    
-    //     try {
-    
-    //         product = rnd.getProduct();
-    
-    //         product = await api.addProduct(product);
-    
-    //         pm.collectionVariables.set("product_id", product.productId);
-    
-    //         pm.collectionVariables.set("product", product);
-    
-    //         
-    
-    //     } catch(err) {
-    
-    //         console.error("Ошибка при подготовке тестовых данных.", err);
-    
-    //     }
-    
-    // 
-    
-    // };
-    
-    // 
-    
-    // const interval = setInterval(() => {}, 1000);
-    
-    // 
-    
-    // setTimeout(async () => 
-    
-    //     {
-    
-    //         try {
-    
-    //             await main();
-    
-    //         } catch (e) {
-    
-    //             console.error(e);
-    
-    //         } finally {
-    
-    //             clearInterval(interval);
-    
-    //         }
-    
-    //     },  
-    
-    //     100 
-    
-    // );
-//%}
-GET {{baseUrl}}{{shopping-store-port}}/api/v1/shopping-store/{{product_id}}
-Accept: */*
-
-> {%
-    // TODO: migrate to HTTP Client Response handler API
-    // pm.test("Код ответа 200", function () {
-
-    //     pm.expect(pm.response.code).to.be.equal(200);
-
-    // });
-
-    // 
-
-    // const product = pm.collectionVariables.get("product");
-
-    // 
-
-    // 
-
-    // pm.test("Проверка полей объекта product", function () {
-
-    //     const responseJson = pm.response.json();
-
-    // 
-
-    //     pm.expect(responseJson.productName).to.equal(product.productName);
-
-    //     pm.expect(responseJson.description).to.equal(product.description);
-
-    //     pm.expect(responseJson.imageSrc).to.equal(product.imageSrc);
-
-    //     pm.expect(responseJson.quantityState).to.equal(product.quantityState);
-
-    //     pm.expect(responseJson.productState).to.equal(product.productState);
-
-    //     pm.expect(responseJson.rating).to.equal(product.rating);
-
-    //     pm.expect(responseJson.productCategory).to.equal(product.productCategory);
-
-    //     pm.expect(responseJson.price).to.equal(product.price);
-
-    // });
-%}
-
-###
-# group: shopping-store
-# @name get Product by Category LIGHTING
-# Получить сведения по товару из БД.
-//< {%
-    // TODO: you can add here Pre-request handler
-//%}
-GET {{baseUrl}}{{shopping-store-port}}/api/v1/shopping-store?
-    category=LIGHTING
-Accept: */*
-
-> {%
-    // TODO: migrate to HTTP Client Response handler API
-    // pm.test("Код ответа 200", function () {
-
-    //     pm.expect(pm.response.code).to.be.equal(200);
-
-    // });
-
-    //
-%}
-
-###
-# group: shopping-store
-# @name update Product
-//< {%
-    // TODO: migrate to HTTP Client Pre-request handler API
-    // const main = async () => {
-    
-    //     const api = new API(pm);
-    
-    //     const rnd = new RandomUtils();
-    
-    // 
-    
-    //     try {
-    
-    //         product = rnd.getProduct();
-    
-    //         product = await api.addProduct(product);
-    
-    // 
-    
-    //         new_product = {
-    
-    //             productId: product.productId,
-    
-    //             productName: "new_product_name",
-    
-    //             description: "new_product_description",
-    
-    //             imageSrc: "new/image/src",
-    
-    //             quantityState: "FEW",
-    
-    //             productState: "ACTIVE",
-    
-    //             productCategory: "CONTROL",
-    
-    //             price: 12.34
-    
-    //         }
-    
-    // 
-    
-    //         pm.collectionVariables.set("product", new_product);
-    
-    //     } catch(err) {
-    
-    //         console.error("Ошибка при подготовке тестовых данных.", err);
-    
-    //     }
-    
-    // 
-    
-    //     pm.request.body.update({
-    
-    //         mode: 'raw',
-    
-    //         raw: JSON.stringify(new_product),
-    
-    //         options: { raw: { language: 'json' } }
-    
-    //     });
-    
-    // };
-    
-    // 
-    
-    // const interval = setInterval(() => {}, 1000);
-    
-    // 
-    
-    // setTimeout(async () => 
-    
-    //     {
-    
-    //         try {
-    
-    //             await main();
-    
-    //         } catch (e) {
-    
-    //             console.error(e);
-    
-    //         } finally {
-    
-    //             clearInterval(interval);
-    
-    //         }
-    
-    //     },  
-    
-    //     100 
-    
-    // );
-//%}
-POST {{baseUrl}}{{shopping-store-port}}/api/v1/shopping-store
-Content-Type: application/json
-Accept: */*
-
-> {%
-    // TODO: migrate to HTTP Client Response handler API
-    // pm.test("Код ответа 200 или 201", function () {
-
-    //     pm.expect(pm.response.code).to.be.oneOf([200, 201]);
-
-    // });
-
-    // 
-
-    // const product = pm.collectionVariables.get("product");
-
-    // 
-
-    // 
-
-    // pm.test("Проверка полей объекта product", function () {
-
-    //     const responseJson = pm.response.json();
-
-    // 
-
-    //     pm.expect(responseJson.productName).to.equal(product.productName);
-
-    //     pm.expect(responseJson.description).to.equal(product.description);
-
-    //     pm.expect(responseJson.imageSrc).to.equal(product.imageSrc);
-
-    //     pm.expect(responseJson.productCategory).to.equal(product.productCategory);
-
-    //     pm.expect(responseJson.price).to.equal(product.price);
-
-    // });
-%}
-
-###
-# group: shopping-store
-# @name remove Product
-# Удалить товар из ассортимента магазина. Функция для менеджерского состава.
-//< {%
-    // TODO: migrate to HTTP Client Pre-request handler API
-    // const main = async () => {
-    
-    //     const api = new API(pm);
-    
-    //     const rnd = new RandomUtils();
-    
-    // 
-    
-    //     try {
-    
-    //         product = rnd.getProduct();
-    
-    //         product.productState = "ACTIVE";
-    
-    //         product = await api.addProduct(product);
-    
-    // 
-    
-    //         pm.collectionVariables.set("product_id", product.productId);
-    
-    //     } catch(err) {
-    
-    //         console.error("Ошибка при подготовке тестовых данных.", err);
-    
-    //     }
-    
-    // 
-    
-    //     pm.request.body.update({
-    
-    //         mode: 'raw',
-    
-    //         raw: JSON.stringify(product.productId),
-    
-    //         options: { raw: { language: 'json' } }
-    
-    //     });
-    
-    // };
-    
-    // 
-    
-    // 
-    
-    // 
-    
-    // const interval = setInterval(() => {}, 1000);
-    
-    // 
-    
-    // setTimeout(async () => 
-    
-    //     {
-    
-    //         try {
-    
-    //             await main();
-    
-    //         } catch (e) {
-    
-    //             console.error(e);
-    
-    //         } finally {
-    
-    //             clearInterval(interval);
-    
-    //         }
-    
-    //     },  
-    
-    //     100 
-    
-    // );
-//%}
-POST {{baseUrl}}{{shopping-store-port}}/api/v1/shopping-store/removeProductFromStore
-Content-Type: application/json
-Accept: */*
-
-> {%
-    // TODO: migrate to HTTP Client Response handler API
-    // pm.test("Код ответа 200 или 203", function () {
-
-    //     pm.expect(pm.response.code).to.be.oneOf([200, 203]);
-
-    // });
-
-    // 
-
-    // 
-
-    // const req = {
-
-    //     url: "http://localhost:" + pm.collectionVariables.get("shopping-store-port") + 
-
-    //         "/api/v1/shopping-store/" + pm.collectionVariables.get("product_id"),
-
-    //     method: "GET",
-
-    // };
-
-    // 
-
-    // pm.sendRequest(req, (error, response) => {
-
-    //     pm.test("Товар должен перейти в статус DEACTIVATE", function(){
-
-    //         pm.expect(response.json().productState).to.eql("DEACTIVATE");
-
-    //     });
-
-    // })
-
-    //
-%}
-
-###
-# group: shopping-store
-# @name set Product Quantity State
-# Установка статуса по товару. API вызывается со стороны склада.
-//< {%
-    // TODO: migrate to HTTP Client Pre-request handler API
-    // const main = async () => {
-    
-    //     const api = new API(pm);
-    
-    //     const rnd = new RandomUtils();
-    
-    // 
-    
-    //     try {
-    
-    //         product = rnd.getProduct();
-    
-    //         product.quantityState = "ENDED";
-    
-    //         product = await api.addProduct(product);
-    
-    // 
-    
-    //         pm.collectionVariables.set("product_id", product.productId);
-    
-    //         pm.collectionVariables.set("quantity_state", ["FEW", "ENOUGH", "MANY"][Math.floor(Math.random() * 3)]);
-    
-    //     } catch(err) {
-    
-    //         console.error("Ошибка при подготовке тестовых данных.", err);
-    
-    //     }
-    
-    // };
-    
-    // 
-    
-    // const interval = setInterval(() => {}, 1000);
-    
-    // 
-    
-    // setTimeout(async () => 
-    
-    //     {
-    
-    //         try {
-    
-    //             await main();
-    
-    //         } catch (e) {
-    
-    //             console.error(e);
-    
-    //         } finally {
-    
-    //             clearInterval(interval);
-    
-    //         }
-    
-    //     },  
-    
-    //     100 
-    
-    // );
-//%}
-POST {{baseUrl}}{{shopping-store-port}}/api/v1/shopping-store/quantityState?
-    productId={{product_id}}&
-    quantityState={{quantity_state}}
-Accept: */*
-
-> {%
-    // TODO: migrate to HTTP Client Response handler API
-    // pm.test("Код ответа 200 или 201", function () {
-
-    //     pm.expect(pm.response.code).to.be.oneOf([200, 201]);
-
-    // });
-
-    // 
-
-    // 
-
-    // const req = {
-
-    //     url: "http://localhost:" + pm.collectionVariables.get("shopping-store-port") + 
-
-    //         "/api/v1/shopping-store/" + pm.collectionVariables.get("product_id"),
-
-    //     method: "GET",
-
-    // };
-
-    // 
-
-    // pm.sendRequest(req, (error, response) => {
-
-    //     pm.test("Проверка полей объекта product", function(){
-
-    //         pm.expect(response.json().quantityState).to.eql(pm.collectionVariables.get("quantity_state"));
-
-    //     });
-
-    // })
-
-    //
-%}
-
-###
-# group: shopping-store
-# @name get Products
-# Получение списка товаров по типу в пагинированном виде
-//< {%
-    // TODO: migrate to HTTP Client Pre-request handler API
-    // const main = async () => {
-    
-    //     const api = new API(pm);
-    
-    //     const rnd = new RandomUtils();
-    
-    // 
-    
-    //     try {
-    
-    //         product = {
-    
-    //             productName: "00000000",
-    
-    //             description: "product_description",
-    
-    //             imageSrc: "product/image/src",
-    
-    //             quantityState: "FEW",
-    
-    //             productState: "ACTIVE",
-    
-    //             productCategory: "CONTROL",
-    
-    //             price: 12.34
-    
-    //         };
-    
-    //         await api.addProduct(product);
-    
-    //         await api.addProduct(product);
-    
-    //         await api.addProduct(product);
-    
-    //         pm.collectionVariables.set("product", product);
-    
-    //     } catch(err) {
-    
-    //         console.error("Ошибка при подготовке тестовых данных.", err);
-    
-    //     }
-    
-    // };
-    
-    // 
-    
-    // const interval = setInterval(() => {}, 1000);
-    
-    // 
-    
-    // setTimeout(async () => 
-    
-    //     {
-    
-    //         try {
-    
-    //             await main();
-    
-    //         } catch (e) {
-    
-    //             console.error(e);
-    
-    //         } finally {
-    
-    //             clearInterval(interval);
-    
-    //         }
-    
-    //     },  
-    
-    //     100 
-    
-    // );
-//%}
-GET {{baseUrl}}{{shopping-store-port}}/api/v1/shopping-store?
-    category=CONTROL&
-    page=0&
-    size=10&
-    sort=productName
-Accept: */*
-
-> {%
-    // TODO: migrate to HTTP Client Response handler API
-    // pm.test("Код ответа 200", function () {
-
-    //     pm.expect(pm.response.code).to.be.equal(200);
-
-    // });
-
-    // 
-
-    // const product = pm.collectionVariables.get("product");
-
-    // 
-
-    // 
-
-    // pm.test("Проверка возвращаемых значений", function () {
-
-    //     const responseJson = pm.response.json();
-
-    //     pm.expect(responseJson["content"][0].productName).to.equal(product.productName);
-
-    //     pm.expect(responseJson["content"][1].productName).to.equal(product.productName);
-
-    //     pm.expect(responseJson["content"][2].productName).to.equal(product.productName);
-
-    //     pm.expect(responseJson.sort[0].direction).to.equal("ASC");
-
-    //     pm.expect(responseJson.sort[0].property).to.equal("productName");
-
-    // });
-%}
-
-###
-# group: shopping-cart
-# @name add Product To Shopping Cart
-# Добавить товар в корзину.
-//< {%
-    // TODO: migrate to HTTP Client Pre-request handler API
-    // const main = async () => {
-    
-    //     const api = new API(pm);
-    
-    //     const rnd = new RandomUtils();
-    
-    // 
-    
-    // try {
-    
-    //     pm.collectionVariables.set("userName", rnd.getWord(10));
-    
-    //     product1 = rnd.getProductForWarehouse();
-    
-    //     product2 = rnd.getProductForWarehouse();
-    
-    //     await api.addProductToWarehouse(product1);        
-    
-    //     await api.addProductToWarehouse(product2);
-    
-    //     
-    
-    //     amount1 = Math.floor(Math.random() * 1000);
-    
-    //     amount2 = Math.floor(Math.random() * 1000);
-    
-    // 
-    
-    //     productList = {
-    
-    //         [product1.productId]: amount1, // Случайное число до 1000
-    
-    //         [product2.productId]: amount2  // Случайное число до 1000
-    
-    //     };
-    
-    //     
-    
-    //     pr1 = {
-    
-    //             "productId": product1.productId,
-    
-    //             "quantity": amount1
-    
-    //         }
-    
-    //     pr2 = {
-    
-    //             "productId": product2.productId,
-    
-    //             "quantity": amount2
-    
-    //         }
-    
-    // 
-    
-    //     await api.addQuantityOfProductsToWarehouse(pr1);
-    
-    //     await api.addQuantityOfProductsToWarehouse(pr2);
-    
-    // 
-    
-    //     console.log("Список продуктов", productList);
-    
-    //     pm.collectionVariables.set("productList", productList); // Сохраняем productList, если нужно
-    
-    // } catch (err) {
-    
-    //     console.error("Ошибка при подготовке тестовых данных.", err);
-    
-    // }
-    
-    // 
-    
-    //     pm.request.body.update({
-    
-    //         mode: 'raw',
-    
-    //         raw: JSON.stringify(productList),
-    
-    //         options: { raw: { language: 'json' } }
-    
-    //     });
-    
-    // };
-    
-    // 
-    
-    // const interval = setInterval(() => {}, 1000);
-    
-    // 
-    
-    // setTimeout(async () => 
-    
-    //     {
-    
-    //         try {
-    
-    //             await main();
-    
-    //         } catch (e) {
-    
-    //             console.error(e);
-    
-    //         } finally {
-    
-    //             clearInterval(interval);
-    
-    //         }
-    
-    //     },  
-    
-    //     100 
-    
-    // );
-//%}
-PUT {{baseUrl}}{{shopping-cart-port}}/api/v1/shopping-cart?
-    username={{userName}}
-Content-Type: application/json
-Accept: */*
-
-> {%
-    // TODO: migrate to HTTP Client Response handler API
-    // pm.test("Код ответа 200 или 201", function () {
-
-    //     pm.expect(pm.response.code).to.be.oneOf([200, 201]);
-
-    // });
-
-    // 
-
-    // const productList = pm.collectionVariables.get("productList"); 
-
-    // const products = pm.response.json().products;
-
-    // 
-
-    // pm.test("Проверка наличия продуктов и валидности количества", function () {
-
-    //     let allKeysPresent = true;
-
-    //     let valuesValid = true;
-
-    //     for (key in productList) {
-
-    //         if (!products.hasOwnProperty(key)) {
-
-    //             allKeysPresent = false;
-
-    //             break;
-
-    //         }
-
-    //         if (products[key] < productList[key]) {
-
-    //             valuesValid = false;
-
-    //         }
-
-    //     }
-
-    // 
-
-    //     pm.expect(allKeysPresent).to.be.true;
-
-    //     pm.expect(valuesValid).to.be.true;
-
-    // });
-
-    //
-%}
-
-###
-# group: shopping-cart
-# @name get Shopping Cart
-# Получить актуальную корзину для авторизованного пользователя.
-//< {%
-    // TODO: migrate to HTTP Client Pre-request handler API
-    // const main = async () => {
-    
-    //     const api = new API(pm);
-    
-    //     const rnd = new RandomUtils();
-    
-    // 
-    
-    //     try {
-    
-    //         userName = rnd.getWord(10);
-    
-    //         pm.collectionVariables.set("userName", userName);
-    
-    // 
-    
-    //         product1 = rnd.getProductForWarehouse();
-    
-    //         await api.addProductToWarehouse(product1);
-    
-    //         amount = Math.floor(Math.random() * 1000)
-    
-    //         product = {
-    
-    //             "productId": product1.productId,
-    
-    //             "quantity": amount + 2
-    
-    //         }
-    
-    // 
-    
-    //         productList = {
-    
-    //             [product1.productId]: amount,
-    
-    //         };
-    
-    // 
-    
-    //         await api.addQuantityOfProductsToWarehouse(product);
-    
-    //         
-    
-    //         pm.collectionVariables.set("productList", productList);
-    
-    //         await api.addProductToShoppingCart(userName, productList)
-    
-    //     } catch(err) {
-    
-    //         console.error("Ошибка при подготовке тестовых данных.", err);
-    
-    //     }
-    
-    // 
-    
-    // };
-    
-    // 
-    
-    // const interval = setInterval(() => {}, 1000);
-    
-    // 
-    
-    // setTimeout(async () => 
-    
-    //     {
-    
-    //         try {
-    
-    //             await main();
-    
-    //         } catch (e) {
-    
-    //             console.error(e);
-    
-    //         } finally {
-    
-    //             clearInterval(interval);
-    
-    //         }
-    
-    //     },  
-    
-    //     100 
-    
-    // );
-//%}
-GET {{baseUrl}}{{shopping-cart-port}}/api/v1/shopping-cart?
-    username={{userName}}
-Accept: */*
-
-> {%
-    // TODO: migrate to HTTP Client Response handler API
-    // pm.test("Код ответа 200", function () {
-
-    //     pm.expect(pm.response.code).to.be.oneOf([200]);
-
-    // });
-
-    // 
-
-    // const productList = pm.collectionVariables.get("productList"); 
-
-    // const products = pm.response.json().products;
-
-    // 
-
-    // pm.test("Проверка наличия продуктов и валидности количества", function () {
-
-    //     let allKeysPresent = true;
-
-    //     let valuesValid = true;
-
-    //     for (key in productList) {
-
-    // 
-
-    //         if (!products.hasOwnProperty(key)) {
-
-    //             allKeysPresent = false;
-
-    //             break;
-
-    //         }
-
-    //         if (products[key] != productList[key]) {
-
-    //             valuesValid = false;
-
-    //         }
-
-    //     }
-
-    // 
-
-    //     pm.expect(allKeysPresent).to.be.true;
-
-    //     pm.expect(valuesValid).to.be.true;
-
-    // });
-
-    //
-%}
-
-###
-# group: shopping-cart
-# @name change Product Quantity
-# Изменить количество товаров в корзине.
-//< {%
-    // TODO: migrate to HTTP Client Pre-request handler API
-    // const main = async () => {
-    
-    //     const api = new API(pm);
-    
-    //     const rnd = new RandomUtils();
-    
-    // 
-    
-    //     try {
-    
-    //         userName = rnd.getWord(10);
-    
-    //         pm.collectionVariables.set("userName", userName);
-    
-    // 
-    
-    //         product1 = rnd.getProductForWarehouse();
-    
-    //         await api.addProductToWarehouse(product1);
-    
-    //         amount = Math.floor(Math.random() * 1000)
-    
-    //         product = {
-    
-    //             "productId": product1.productId,
-    
-    //             "quantity": amount + 2
-    
-    //         }
-    
-    // 
-    
-    //         productList = {
-    
-    //             [product1.productId]: amount,
-    
-    //         };
-    
-    // 
-    
-    //         await api.addQuantityOfProductsToWarehouse(product);
-    
-    //         
-    
-    //         pm.collectionVariables.set("productList", productList);
-    
-    //         await api.addProductToShoppingCart(userName, productList)
-    
-    //         cart = await api.getShoppingCart(userName);
-    
-    //         pm.collectionVariables.set("cart", cart)
-    
-    //         changeQuantity = {
-    
-    //             "newQuantity": amount + 1,
-    
-    //             "productId": product1.productId
-    
-    //         }
-    
-    // 
-    
-    //         pm.request.body.update({
-    
-    //             mode: 'raw',
-    
-    //             raw: JSON.stringify(changeQuantity),
-    
-    //             options: { raw: { language: 'json' } }
-    
-    //         });
-    
-    //     } catch(err) {
-    
-    //         console.error("Ошибка при подготовке тестовых данных.", err);
-    
-    //     }
-    
-    // 
-    
-    // };
-    
-    // 
-    
-    // const interval = setInterval(() => {}, 1000);
-    
-    // 
-    
-    // setTimeout(async () => 
-    
-    //     {
-    
-    //         try {
-    
-    //             await main();
-    
-    //         } catch (e) {
-    
-    //             console.error(e);
-    
-    //         } finally {
-    
-    //             clearInterval(interval);
-    
-    //         }
-    
-    //     },  
-    
-    //     100 
-    
-    // );
-//%}
-POST {{baseUrl}}{{shopping-cart-port}}/api/v1/shopping-cart/change-quantity?
-    username={{userName}}
-Content-Type: application/json
-Accept: */*
-
-> {%
-    // TODO: migrate to HTTP Client Response handler API
-    // pm.test("Код ответа 200, 201 или 204", function () {
-
-    //     pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);
-
-    // });
-
-    // 
-
-    // const cart = pm.collectionVariables.get("cart"); 
-
-    // const newCart = pm.response.json();
-
-    // 
-
-    // pm.test("Проверка полей новой корзины", function () {
-
-    // 
-
-    //     pm.expect(newCart.shoppingCartId).to.equal(cart.shoppingCartId);
-
-    // 
-
-    //     const productId = Object.keys(cart.products)[0];
-
-    //     const expectedQuantity = cart.products[productId];
-
-    //     const actualQuantity = newCart.products[productId];
-
-    // 
-
-    //     pm.expect(actualQuantity).to.equal(expectedQuantity + 1);
-
-    // });
-
-    //
-%}
-
-###
-# group: shopping-cart
-# @name remove From Shopping Cart
-# Изменить состав товаров в корзине, т.е. удалить другие.
-//< {%
-    // TODO: migrate to HTTP Client Pre-request handler API
-    // const main = async () => {
-    
-    //     const api = new API(pm);
-    
-    //     const rnd = new RandomUtils();
-    
-    // 
-    
-    //     try {
-    
-    //         userName = rnd.getWord(10);
-    
-    //         pm.collectionVariables.set("userName", userName);
-    
-    // 
-    
-    //         product1 = rnd.getProductForWarehouse();
-    
-    //         await api.addProductToWarehouse(product1);
-    
-    //         amount = Math.floor(Math.random() * 1000)
-    
-    //         product = {
-    
-    //             "productId": product1.productId,
-    
-    //             "quantity": amount + 2
-    
-    //         }
-    
-    // 
-    
-    //         productList = {
-    
-    //             [product1.productId]: amount
-    
-    //         };
-    
-    // 
-    
-    //         await api.addQuantityOfProductsToWarehouse(product);
-    
-    //         
-    
-    //         pm.collectionVariables.set("productList", productList);
-    
-    //         await api.addProductToShoppingCart(userName, productList)
-    
-    //         cart = await api.getShoppingCart(userName);
-    
-    //         pm.collectionVariables.set("cart", cart)
-    
-    //         changeQuantity = [product1.productId]
-    
-    //         
-    
-    // 
-    
-    //         pm.request.body.update({
-    
-    //             mode: 'raw',
-    
-    //             raw: JSON.stringify(changeQuantity),
-    
-    //             options: { raw: { language: 'json' } }
-    
-    //         });
-    
-    //     } catch(err) {
-    
-    //         console.error("Ошибка при подготовке тестовых данных.", err);
-    
-    //     }
-    
-    // 
-    
-    // };
-    
-    // 
-    
-    // const interval = setInterval(() => {}, 1000);
-    
-    // 
-    
-    // setTimeout(async () => 
-    
-    //     {
-    
-    //         try {
-    
-    //             await main();
-    
-    //         } catch (e) {
-    
-    //             console.error(e);
-    
-    //         } finally {
-    
-    //             clearInterval(interval);
-    
-    //         }
-    
-    //     },  
-    
-    //     100 
-    
-    // );
-//%}
-POST {{baseUrl}}{{shopping-cart-port}}/api/v1/shopping-cart/remove?
-    username={{userName}}
-Content-Type: application/json
-Accept: */*
-
-> {%
-    // TODO: migrate to HTTP Client Response handler API
-    // pm.test("Код ответа 200, 201 или 204", function () {
-
-    //     pm.expect(pm.response.code).to.be.oneOf([200, 201, 204]);
-
-    // });
-
-    // 
-
-    // const cart = pm.collectionVariables.get("cart"); 
-
-    // const newCart = pm.response.json();
-
-    // 
-
-    // pm.test("Проверка полей новой корзины", function () {
-
-    // 
-
-    //     pm.expect(newCart.shoppingCartId).to.equal(cart.shoppingCartId);
-
-    // 
-
-    //     pm.expect(newCart.products).to.eql({});
-
-    // });
-
-    //
-%}
-
-###
-# group: shopping-cart
-# @name deactivate Current Shopping Cart
-# Деактивация корзины товаров для пользователя.
-//< {%
-    // TODO: migrate to HTTP Client Pre-request handler API
-    // const main = async () => {
-    
-    //     const api = new API(pm);
-    
-    //     const rnd = new RandomUtils();
-    
-    // 
-    
-    //     try {
-    
-    //         userName = rnd.getWord(10);
-    
-    //         pm.collectionVariables.set("userName", userName);
-    
-    // 
-    
-    //         product1 = rnd.getProductForWarehouse();
-    
-    //         await api.addProductToWarehouse(product1);
-    
-    // 
-    
-    //         amount = Math.floor(Math.random() * 1000)
-    
-    //         product = {
-    
-    //             "productId": product1.productId,
-    
-    //             "quantity": amount + 2
-    
-    //         }
-    
-    // 
-    
-    //         await api.addQuantityOfProductsToWarehouse(product);
-    
-    // 
-    
-    //         productList = {
-    
-    //             [product1.productId]: amount,
-    
-    //         };
-    
-    //         pm.collectionVariables.set("productList", productList);
-    
-    //         await api.addProductToShoppingCart(userName, productList)
-    
-    // 
-    
-    //         cart = await api.getShoppingCart(userName);
-    
-    //         pm.collectionVariables.set("cart", cart)
-    
-    // 
-    
-    //     } catch(err) {
-    
-    //         console.error("Ошибка при подготовке тестовых данных.", err);
-    
-    //     }
-    
-    // 
-    
-    // };
-    
-    // 
-    
-    // const interval = setInterval(() => {}, 1000);
-    
-    // 
-    
-    // setTimeout(async () => 
-    
-    //     {
-    
-    //         try {
-    
-    //             await main();
-    
-    //         } catch (e) {
-    
-    //             console.error(e);
-    
-    //         } finally {
-    
-    //             clearInterval(interval);
-    
-    //         }
-    
-    //     },  
-    
-    //     100 
-    
-    // );
-//%}
-DELETE {{baseUrl}}{{shopping-cart-port}}/api/v1/shopping-cart?
-    username={{userName}}
-Accept: */*
-
-> {%
-    // TODO: migrate to HTTP Client Response handler API
-    // pm.test("Код ответа 200, 201, 203, 204", function () {
-
-    //     pm.expect(pm.response.code).to.be.oneOf([200, 201, 203, 204]);
-
-    // });
-
-    //
-%}
-
-###
-# group: warehouse
-# @name get Warehouse Address
-# Предоставить адрес склада для расчёта доставки.
-GET {{baseUrl}}{{warehouse-port}}/api/v1/warehouse/address
-Accept: */*
+### ─────────────────────────────────────────────
+### Переменные — порты
+### Зафиксируй в config-repo или смотри в Eureka
+### ─────────────────────────────────────────────
+@productPort   = 63693
+@inventoryPort = 63667
+@orderPort     = 55601
+
+### Заполняются автоматически через response-скрипты
+@categoryId  = 1
+@productOk   = 2
+@productBad  = 3
+
+
+### ═════════════════════════════════════════════
+### PRODUCT-SERVICE — КАТЕГОРИИ
+### ═════════════════════════════════════════════
+
+### 1. Создать категорию
+# @name createCategory
+POST http://localhost:{{productPort}}/api/categories
 Content-Type: application/json
 
+{
+  "name": "Освещение {{$randomInt 1000 9999}}",
+  "description": "Умные лампы и светильники"
+}
+
 > {%
-    // TODO: migrate to HTTP Client Response handler API
-    // pm.test("Код ответа 200", function () {
-
-    //     pm.response.to.have.status(200);
-
-    // });
-
-    // 
-
-    // const expectedFields = [
-
-    //     "country",
-
-    //     "city",
-
-    //     "street",
-
-    //     "house",
-
-    //     "flat"
-
-    // ];
-
-    // 
-
-    // pm.test("Проверка наличия всех полей в ответе", function () {
-
-    //     const responseJson = pm.response.json();
-
-    //     
-
-    //     expectedFields.forEach(field => {
-
-    //         pm.expect(responseJson).to.have.property(field);
-
-    //     });
-
-    // });
-
-    //
+    client.global.set("categoryId", response.body.id);
 %}
 
-###
-# group: warehouse
-# @name new Product In Warehouse
-# Добавить новый товар на склад.
-//< {%
-    // TODO: migrate to HTTP Client Pre-request handler API
-    // const main = async () => {
-    
-    //     const api = new API(pm);
-    
-    //     const rnd = new RandomUtils();
-    
-    // 
-    
-    //     try {
-    
-    //         product = rnd.getProductForWarehouse();
-    
-    //         pm.collectionVariables.set("product", product);
-    
-    //     } catch(err) {
-    
-    //         console.error("Ошибка при подготовке тестовых данных.", err);
-    
-    //     }
-    
-    // 
-    
-    //     pm.request.body.update({
-    
-    //         mode: 'raw',
-    
-    //         raw: JSON.stringify(product),
-    
-    //         options: { raw: { language: 'json' } }
-    
-    //     });
-    
-    // };
-    
-    // 
-    
-    // const interval = setInterval(() => {}, 1000);
-    
-    // 
-    
-    // setTimeout(async () => 
-    
-    //     {
-    
-    //         try {
-    
-    //             await main();
-    
-    //         } catch (e) {
-    
-    //             console.error(e);
-    
-    //         } finally {
-    
-    //             clearInterval(interval);
-    
-    //         }
-    
-    //     },  
-    
-    //     100 
-    
-    // );
-//%}
-PUT {{baseUrl}}{{warehouse-port}}/api/v1/warehouse
+### 2. Получить все категории
+GET http://localhost:{{productPort}}/api/categories
+Accept: application/json
+
+### 3. Получить категорию по ID
+GET http://localhost:{{productPort}}/api/categories/{{categoryId}}
+Accept: application/json
+
+### 4. Получить несуществующую категорию (ожидается 404)
+GET http://localhost:{{productPort}}/api/categories/999999999
+Accept: application/json
+
+
+### ═════════════════════════════════════════════
+### PRODUCT-SERVICE — ТОВАРЫ
+### ═════════════════════════════════════════════
+
+### 5. Создать АКТИВНЫЙ товар (для успешных сценариев заказа)
+# @name createProductOk
+POST http://localhost:{{productPort}}/api/products
 Content-Type: application/json
-Accept: */*
+
+{
+  "name": "Active Lamp {{$randomInt 1000 9999}}",
+  "description": "Умная светодиодная лампа",
+  "price": 1490.00,
+  "categoryId": {{categoryId}},
+  "imageUrl": "https://example.com/products/lamp.png"
+}
 
 > {%
-    // TODO: migrate to HTTP Client Response handler API
-    // pm.test("Код ответа 200 или 201", function () {
-
-    //     pm.expect(pm.response.code).to.be.oneOf([200, 201]);
-
-    // });
+    client.global.set("productOk", response.body.id);
 %}
 
-###
-# group: warehouse
-# @name add Product To Warehouse
-# Принять товар на склад.
-//< {%
-    // TODO: migrate to HTTP Client Pre-request handler API
-    // const main = async () => {
-    
-    //     const api = new API(pm);
-    
-    //     const rnd = new RandomUtils();
-    
-    // 
-    
-    //     try {
-    
-    //         product = rnd.getProductForWarehouse();
-    
-    //         await api.addProductToWarehouse(product);
-    
-    //         product = {
-    
-    //             "productId": product.productId,
-    
-    //             "quantity": Number(pm.variables.replaceIn('{{$randomInt}}'))
-    
-    //         }
-    
-    //         pm.collectionVariables.set("product", product);
-    
-    //     } catch(err) {
-    
-    //         console.error("Ошибка при подготовке тестовых данных.", err);
-    
-    //     }
-    
-    // 
-    
-    //     pm.request.body.update({
-    
-    //         mode: 'raw',
-    
-    //         raw: JSON.stringify(product),
-    
-    //         options: { raw: { language: 'json' } }
-    
-    //     });
-    
-    // };
-    
-    // 
-    
-    // const interval = setInterval(() => {}, 1000);
-    
-    // 
-    
-    // setTimeout(async () => 
-    
-    //     {
-    
-    //         try {
-    
-    //             await main();
-    
-    //         } catch (e) {
-    
-    //             console.error(e);
-    
-    //         } finally {
-    
-    //             clearInterval(interval);
-    
-    //         }
-    
-    //     },  
-    
-    //     100 
-    
-    // );
-//%}
-POST {{baseUrl}}{{warehouse-port}}/api/v1/warehouse/add
+### 6. Создать ВТОРОЙ товар (позже деактивируем для проверки отказа)
+# @name createProductBad
+POST http://localhost:{{productPort}}/api/products
 Content-Type: application/json
-Accept: */*
+
+{
+  "name": "To Be Deactivated {{$randomInt 1000 9999}}",
+  "description": "Товар для проверки отказа",
+  "price": 1000.00,
+  "categoryId": {{categoryId}}
+}
 
 > {%
-    // TODO: migrate to HTTP Client Response handler API
-    // pm.test("Код ответа 200 или 201", function () {
-
-    //     pm.expect(pm.response.code).to.be.oneOf([200, 201]);
-
-    // });
+    client.global.set("productBad", response.body.id);
 %}
+
+### 7. Получить все активные товары
+GET http://localhost:{{productPort}}/api/products
+Accept: application/json
+
+### 8. Получить АКТИВНЫЙ товар по ID
+GET http://localhost:{{productPort}}/api/products/{{productOk}}
+Accept: application/json
+
+### 9. Получить несуществующий товар (ожидается 404)
+GET http://localhost:{{productPort}}/api/products/999999999
+Accept: application/json
+
+### 10. Получить товары категории
+GET http://localhost:{{productPort}}/api/products/category/{{categoryId}}
+Accept: application/json
+
+### 11. Поиск по названию
+GET http://localhost:{{productPort}}/api/products/search?query=Lamp
+Accept: application/json
+
+### 12. Частичное обновление АКТИВНОГО товара (цена)
+PATCH http://localhost:{{productPort}}/api/products/{{productOk}}
+Content-Type: application/json
+
+{
+  "price": 1590.00
+}
+
+
+### ═════════════════════════════════════════════
+### INVENTORY-SERVICE
+### ═════════════════════════════════════════════
+
+### 13. Создать складскую запись для АКТИВНОГО товара
+POST http://localhost:{{inventoryPort}}/api/inventory
+Content-Type: application/json
+
+{
+  "productId": {{productOk}},
+  "quantity": 100
+}
+
+### 14. Создать складскую запись для ВТОРОГО товара
+POST http://localhost:{{inventoryPort}}/api/inventory
+Content-Type: application/json
+
+{
+  "productId": {{productBad}},
+  "quantity": 50
+}
+
+### 15. Получить все складские записи
+GET http://localhost:{{inventoryPort}}/api/inventory
+Accept: application/json
+
+### 16. Получить остатки по АКТИВНОМУ товару
+GET http://localhost:{{inventoryPort}}/api/inventory/{{productOk}}
+Accept: application/json
+
+### 17. Обновить общее количество АКТИВНОГО товара
+PUT http://localhost:{{inventoryPort}}/api/inventory
+Content-Type: application/json
+
+{
+  "productId": {{productOk}},
+  "quantity": 200
+}
+
+### 18. Зарезервировать 2 единицы АКТИВНОГО товара (ожидается 200)
+POST http://localhost:{{inventoryPort}}/api/inventory/reserve
+Content-Type: application/json
+
+{
+  "productId": {{productOk}},
+  "quantity": 2
+}
+
+### 19. Зарезервировать больше, чем есть (ожидается 409)
+POST http://localhost:{{inventoryPort}}/api/inventory/reserve
+Content-Type: application/json
+
+{
+  "productId": {{productOk}},
+  "quantity": 999999
+}
+
+### 20. Снять резерв 2 единицы (ожидается 200)
+POST http://localhost:{{inventoryPort}}/api/inventory/release
+Content-Type: application/json
+
+{
+  "productId": {{productOk}},
+  "quantity": 2
+}
+
+### 21. Снять больше, чем зарезервировано (ожидается 409)
+POST http://localhost:{{inventoryPort}}/api/inventory/release
+Content-Type: application/json
+
+{
+  "productId": {{productOk}},
+  "quantity": 999999
+}
+
+
+### ═════════════════════════════════════════════
+### ORDER-SERVICE — УСПЕШНЫЕ СЦЕНАРИИ
+### ═════════════════════════════════════════════
+
+### 22. Создать заказ на АКТИВНЫЙ товар (ожидается 201, CONFIRMED)
+POST http://localhost:{{orderPort}}/api/orders
+Content-Type: application/json
+
+{
+  "customerName": "Иван Петров",
+  "customerEmail": "ivan@example.com",
+  "items": [
+    { "productId": {{productOk}}, "quantity": 2 }
+  ]
+}
+
+### 23. Заказ с дубликатом productId (ожидается 201, quantity = 3)
+POST http://localhost:{{orderPort}}/api/orders
+Content-Type: application/json
+
+{
+  "customerName": "Иван Петров",
+  "customerEmail": "ivan@example.com",
+  "items": [
+    { "productId": {{productOk}}, "quantity": 2 },
+    { "productId": {{productOk}}, "quantity": 1 }
+  ]
+}
+
+### 24. Получить все заказы
+GET http://localhost:{{orderPort}}/api/orders
+Accept: application/json
+
+### 25. Получить заказ по ID
+GET http://localhost:{{orderPort}}/api/orders/1
+Accept: application/json
+
+### 26. Получить заказы по email
+GET http://localhost:{{orderPort}}/api/orders/by-email?email=ivan@example.com
+Accept: application/json
+
+
+### ═════════════════════════════════════════════
+### ORDER-SERVICE — ОТКАЗЫ (бизнес-ошибки, 422)
+### ═════════════════════════════════════════════
+
+### 27. Заказ на несуществующий товар (ожидается 422)
+POST http://localhost:{{orderPort}}/api/orders
+Content-Type: application/json
+
+{
+  "customerName": "Иван Петров",
+  "customerEmail": "ivan@example.com",
+  "items": [
+    { "productId": 999999999, "quantity": 1 }
+  ]
+}
+
+### 28. Деактивировать ВТОРОЙ товар
+PATCH http://localhost:{{productPort}}/api/products/{{productBad}}
+Content-Type: application/json
+
+{
+  "active": false
+}
+
+### 29. Заказ на ДЕАКТИВИРОВАННЫЙ товар (ожидается 422)
+POST http://localhost:{{orderPort}}/api/orders
+Content-Type: application/json
+
+{
+  "customerName": "Иван Петров",
+  "customerEmail": "ivan@example.com",
+  "items": [
+    { "productId": {{productBad}}, "quantity": 2 }
+  ]
+}
+
+
+### ═════════════════════════════════════════════
+### ORDER-SERVICE — ДЕГРАДАЦИЯ (Circuit Breaker)
+### ═════════════════════════════════════════════
+
+### 30. Останови product-service и запусти этот запрос.
+###     Ожидается 201, status = PENDING_CONFIRMATION.
+POST http://localhost:{{orderPort}}/api/orders
+Content-Type: application/json
+
+{
+  "customerName": "Иван Петров",
+  "customerEmail": "ivan@example.com",
+  "items": [
+    { "productId": {{productOk}}, "quantity": 2 }
+  ]
+}
+
+### 31. Останови inventory-service и запусти этот запрос.
+###     Ожидается 201, status = PENDING_CONFIRMATION.
+POST http://localhost:{{orderPort}}/api/orders
+Content-Type: application/json
+
+{
+  "customerName": "Иван Петров",
+  "customerEmail": "ivan@example.com",
+  "items": [
+    { "productId": {{productOk}}, "quantity": 2 }
+  ]
+}
+
+
+
+### 1. Создать категорию
+# @name createCategory
+POST http://localhost:{{productPort}}/api/categories
+Content-Type: application/json
+
+{
+  "name": "Test Category",
+  "description": "test"
+}
+
+> {%
+    client.global.set("categoryId", response.body.id);
+%}
+
+### 2. Создать товар (активный)
+# @name createProduct
+POST http://localhost:{{productPort}}/api/products
+Content-Type: application/json
+
+{
+  "name": "Test Product",
+  "description": "test",
+  "price": 100.00,
+  "categoryId": {{categoryId}}
+}
+
+> {%
+    client.global.set("productId", response.body.id);
+%}
+
+### 3. Создать складскую запись
+POST http://localhost:{{inventoryPort}}/api/inventory
+Content-Type: application/json
+
+{
+  "productId": {{productId}},
+  "quantity": 100
+}
+
+### 4. Создать заказ
+POST http://localhost:{{orderPort}}/api/orders
+Content-Type: application/json
+
+{
+  "customerName": "Иван",
+  "customerEmail": "ivan@example.com",
+  "items": [
+    { "productId": {{productId}}, "quantity": 2 }
+  ]
+}

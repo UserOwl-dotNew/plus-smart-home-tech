@@ -3,7 +3,6 @@ package ru.yandex.practicum.order.service.impl;
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.bouncycastle.asn1.OIDTokenizer;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.yandex.practicum.order.dto.*;
@@ -32,7 +31,6 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Slf4j
-@Transactional(readOnly = true)
 @Service
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
@@ -44,6 +42,7 @@ public class OrderServiceImpl implements OrderService {
     private final OrderSaver orderSaver;
 
     @Override
+    @Transactional(readOnly = true)
     public OrderDto findById(Long id) {
         Order order = orderRepository.findByIdWithItems(id)
                 .orElseThrow(() -> new NotFoundException("Order not found with id=" + id));
@@ -52,6 +51,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<OrderDto> findAll() {
         return orderRepository.findAllWithItems().stream()
                 .map(mapper::toDto)
@@ -59,6 +59,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<OrderDto> findAllByEmail(String email) {
         return orderRepository.findAllByEmailWithItems(email).stream()
                 .map(mapper::toDto)
@@ -77,7 +78,13 @@ public class OrderServiceImpl implements OrderService {
         boolean hasFailure = productResults.stream()
                 .anyMatch(r -> r instanceof ServiceCallResult.Failure);
 
-        if (hasFailure) throw new OrderProcessingException("Order rejected: business failure");
+        if (hasFailure) {
+            String reason = productResults.stream()
+                    .filter(r -> r instanceof ServiceCallResult.Failure)
+                    .map(r -> ((ServiceCallResult.Failure) r).message())
+                    .collect(Collectors.joining(", "));
+            throw new OrderProcessingException("Order rejected: " + reason);
+        }
 
         boolean hasDegraded = productResults.stream()
                 .anyMatch(r -> r instanceof ServiceCallResult.Degraded);
@@ -85,7 +92,7 @@ public class OrderServiceImpl implements OrderService {
         if (hasDegraded) {
             Order pending = buildPendingOrder(request);
             return mapper.toDto(orderSaver.save(pending));
-        };
+        }
 
         Map<Long, ProductDto> products = productResults.stream()
                 .map(r -> ((ServiceCallResult.Success<ProductDto>) r).data())
@@ -116,7 +123,11 @@ public class OrderServiceImpl implements OrderService {
 
         if (hasFailure) {
             releaseAll(reserved);
-            throw new OrderProcessingException("Reservation failed");
+            String reason = reserveResults.stream()
+                    .filter(r -> r instanceof ServiceCallResult.Failure)
+                    .map(r -> ((ServiceCallResult.Failure) r).message())
+                    .collect(Collectors.joining(", "));
+            throw new OrderProcessingException("Reservation failed: " + reason);
         }
 
         hasDegraded = reserveResults.stream()

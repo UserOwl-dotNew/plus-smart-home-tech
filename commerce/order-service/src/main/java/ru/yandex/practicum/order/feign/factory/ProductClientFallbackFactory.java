@@ -1,7 +1,7 @@
 package ru.yandex.practicum.order.feign.factory;
 
-import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.stereotype.Component;
 import ru.yandex.practicum.order.exception.ProductServiceUnavailableException;
