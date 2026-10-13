@@ -90,7 +90,7 @@ public class OrderServiceImpl implements OrderService {
                 .anyMatch(r -> r instanceof ServiceCallResult.Degraded);
 
         if (hasDegraded) {
-            Order pending = buildPendingOrder(request);
+            Order pending = buildPendingOrderWithoutProductData(request);
             return mapper.toDto(orderSaver.save(pending));
         }
 
@@ -135,7 +135,7 @@ public class OrderServiceImpl implements OrderService {
 
         if (hasDegraded) {
             releaseAll(reserved);
-            Order pending = buildPendingOrder(request);
+            Order pending = buildPendingOrderWithProductData(request, products);
             return mapper.toDto(orderSaver.save(pending));
         }
 
@@ -182,14 +182,14 @@ public class OrderServiceImpl implements OrderService {
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
-    private Order buildPendingOrder(CreateOrderRequest request) {
+    private Order buildPendingOrderWithoutProductData(CreateOrderRequest request) {
         Order order = Order.builder()
                 .customerName(request.customerName())
                 .customerEmail(request.customerEmail())
                 .status(OrderStatus.PENDING_CONFIRMATION.name())
                 .createdAt(LocalDateTime.now())
                 .totalPrice(BigDecimal.ZERO)
-                .statusDetails("Заказ требует ручной проверки")
+                .statusDetails("Заказ требует ручной проверки (нет данных о товаре)")
                 .orderItems(new ArrayList<>())
                 .build();
 
@@ -202,6 +202,37 @@ public class OrderServiceImpl implements OrderService {
                     .build();
             order.addOrderItem(orderItem);
         });
+
+        return order;
+    }
+
+    private Order buildPendingOrderWithProductData(CreateOrderRequest request, Map<Long, ProductDto> products) {
+        Order order = Order.builder()
+                .customerName(request.customerName())
+                .customerEmail(request.customerEmail())
+                .status(OrderStatus.PENDING_CONFIRMATION.name())
+                .createdAt(LocalDateTime.now())
+                .totalPrice(BigDecimal.ZERO)
+                .statusDetails("Заказ требует ручной проверки (резерв не подтверждён)")
+                .orderItems(new ArrayList<>())
+                .build();
+
+        List<OrderItem> orderItems = request.items().stream()
+                .map(req -> {
+                    ProductDto product = products.get(req.productId());
+                    return OrderItem.builder()
+                            .productId(product.id())
+                            .productName(product.name())
+                            .quantity(req.quantity())
+                            .price(product.price())
+                            .build();
+                })
+                .toList();
+
+        orderItems.forEach(order::addOrderItem);
+
+        BigDecimal total = getTotalPrice(orderItems);
+        order.setTotalPrice(total);
 
         return order;
     }

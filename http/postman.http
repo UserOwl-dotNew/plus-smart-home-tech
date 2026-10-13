@@ -4,7 +4,7 @@
 ### ─────────────────────────────────────────────
 @productPort   = 63693
 @inventoryPort = 63667
-@orderPort     = 55601
+@orderPort     = 51931
 
 ### Заполняются автоматически через response-скрипты
 @categoryId  = 1
@@ -340,7 +340,7 @@ POST http://localhost:{{orderPort}}/api/orders
 Content-Type: application/json
 
 {
-  "customerName": "Иван",
+  "customerName": "Vova",
   "customerEmail": "ivan@example.com",
   "items": [
     { "productId": {{productId}}, "quantity": 2 }
