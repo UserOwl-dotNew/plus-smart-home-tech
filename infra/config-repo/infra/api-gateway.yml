@@ -26,16 +26,6 @@ spring:
         locator:
           enabled: false
       routes:
-        - id: product-service-products
-          uri: lb://product-service
-          predicates:
-            - Path=/api/products/**
-
-        - id: product-service-categories
-          uri: lb://product-service
-          predicates:
-            - Path=/api/categories/**
-
         - id: product-service-read
           uri: lb://product-service
           predicates:
@@ -55,19 +45,65 @@ spring:
                   firstBackoff: 100ms
                   maxBackoff: 500ms
 
-        - id: inventory-service
+        - id: inventory-service-read
           uri: lb://inventory-service
           predicates:
             - Path=/api/inventory/**
-
-        - id: order-service
-          uri: lb://order-service
-          predicates:
-            - Path=/api/orders/**
+            - Method=GET
+          filters:
+            - name: Retry
+              args:
+                retries: 2
+                statuses:
+                  - BAD_GATEWAY
+                  - SERVICE_UNAVAILABLE
+                  - GATEWAY_TIMEOUT
+                methods:
+                  - GET
+                backoff:
+                  firstBackoff: 100ms
+                  maxBackoff: 500ms
 
         - id: order-service-read
           uri: lb://order-service
           predicates:
             - Path=/api/orders/**
             - Method=GET
+          filters:
+            - name: Retry
+              args:
+                retries: 2
+                statuses:
+                  - BAD_GATEWAY
+                  - SERVICE_UNAVAILABLE
+                  - GATEWAY_TIMEOUT
+                methods:
+                  - GET
+                backoff:
+                  firstBackoff: 100ms
+                  maxBackoff: 500ms
+
+        - id: product-service-products
+          uri: lb://product-service
+          predicates:
+            - Path=/api/products/**
+            - Method=POST,PUT,PATCH,DELETE
+
+        - id: product-service-categories
+          uri: lb://product-service
+          predicates:
+            - Path=/api/categories/**
+            - Method=POST,PUT,PATCH,DELETE
+
+        - id: inventory-service
+          uri: lb://inventory-service
+          predicates:
+            - Path=/api/inventory/**
+            - Method=POST,PUT,PATCH,DELETE
+
+        - id: order-service
+          uri: lb://order-service
+          predicates:
+            - Path=/api/orders/**
+            - Method=POST,PUT,PATCH,DELETE
 
