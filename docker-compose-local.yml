@@ -1,0 +1,64 @@
+services:
+  config-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        JAR_FILE: infra/config-server/target/config-server-1.0-SNAPSHOT.jar
+    container_name: shop-config-server
+    ports:
+      - "8888:8888"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  discovery-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        JAR_FILE: infra/discovery-server/target/discovery-server-1.0-SNAPSHOT.jar
+    container_name: shop-discovery-server
+    ports:
+      - "8761:8761"
+    depends_on:
+      - config-server
+
+  product-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        JAR_FILE: commerce/product-service/target/product-service-1.0-SNAPSHOT.jar
+    container_name: shop-product-service
+    depends_on:
+      - config-server
+      - discovery-server
+      - postgres
+
+  inventory-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        JAR_FILE: commerce/inventory-service/target/inventory-service-1.0-SNAPSHOT.jar
+    container_name: shop-inventory-service
+    depends_on:
+      - config-server
+      - discovery-server
+      - postgres
+
+  order-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        JAR_FILE: commerce/order-service/target/order-service-1.0-SNAPSHOT.jar
+    container_name: shop-order-service
+    depends_on:
+      - config-server
+      - discovery-server
+      - postgres
+
+volumes:
+  pgdata:

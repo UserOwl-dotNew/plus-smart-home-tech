@@ -9,7 +9,7 @@ public class CommerceFeignErrorDecoder implements ErrorDecoder {
 
     @Override
     public Exception decode(String methodKey, Response response) {
-        if(response.status() == 404) {
+        if (response.status() == 404) {
             return new OrderProcessingException("Ресурс соседнего сервиса не найден");
         }
 

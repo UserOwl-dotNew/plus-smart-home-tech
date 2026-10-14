@@ -1,5 +1,5 @@
 package ru.yandex.practicum.order.enums;
 
 public enum OrderStatus {
-    CREATED, CONFIRMED
+    CREATED, CONFIRMED, PENDING_CONFIRMATION
 }
