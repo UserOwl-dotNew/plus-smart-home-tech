@@ -97,6 +97,12 @@
                 <artifactId>spring-cloud-starter-gateway</artifactId>
                 <version>4.1.5</version>
             </dependency>
+
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-gateway-server</artifactId>
+                <version>4.1.5</version>
+            </dependency>
             <!--    / GRPC dependencies management        -->
         </dependencies>
     </dependencyManagement>
