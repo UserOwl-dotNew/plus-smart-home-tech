@@ -1,348 +1,110 @@
 ### ─────────────────────────────────────────────
 ### Переменные — порты
-### Зафиксируй в config-repo или смотри в Eureka
+### Заполни актуальными значениями
 ### ─────────────────────────────────────────────
-@productPort   = 63693
-@inventoryPort = 63667
-@orderPort     = 51931
-
-### Заполняются автоматически через response-скрипты
-@categoryId  = 1
-@productOk   = 2
-@productBad  = 3
+@gatewayPort  = 8080
+@productPort  = 55238
+@inventoryPort = 55222
+@orderPort    = 55242
 
 
 ### ═════════════════════════════════════════════
-### PRODUCT-SERVICE — КАТЕГОРИИ
+### GATEWAY — ACTUATOR
 ### ═════════════════════════════════════════════
 
-### 1. Создать категорию
-# @name createCategory
-POST http://localhost:{{productPort}}/api/categories
+### Gateway: health
+GET http://localhost:{{gatewayPort}}/actuator/health
+Accept: application/json
+
+### Gateway: все маршруты
+GET http://localhost:{{gatewayPort}}/actuator/gateway/routes
+Accept: application/json
+
+### Gateway: конкретный маршрут product-service-read
+GET http://localhost:{{gatewayPort}}/actuator/gateway/routes/product-service-read
+Accept: application/json
+
+
+### ═════════════════════════════════════════════
+### GATEWAY — МАРШРУТИЗАЦИЯ
+### ═════════════════════════════════════════════
+
+### Через Gateway: все активные товары
+GET http://localhost:{{gatewayPort}}/api/products
+Accept: application/json
+
+### Через Gateway: все категории
+GET http://localhost:{{gatewayPort}}/api/categories
+Accept: application/json
+
+### Через Gateway: остатки на складе
+GET http://localhost:{{gatewayPort}}/api/inventory
+Accept: application/json
+
+### Через Gateway: все заказы
+GET http://localhost:{{gatewayPort}}/api/orders
+Accept: application/json
+
+### Через Gateway: неизвестный маршрут (ожидается 404)
+GET http://localhost:{{gatewayPort}}/api/unknown-12345
+Accept: application/json
+
+
+### ═════════════════════════════════════════════
+### GATEWAY — WRITE-ОПЕРАЦИИ
+### ═════════════════════════════════════════════
+
+### Через Gateway: создать категорию
+POST http://localhost:{{gatewayPort}}/api/categories
 Content-Type: application/json
 
 {
-  "name": "Освещение {{$randomInt 1000 9999}}",
-  "description": "Умные лампы и светильники"
+  "name": "Через Gateway {{$randomInt 1000 9999}}",
+  "description": "Создано через api-gateway"
 }
 
-> {%
-    client.global.set("categoryId", response.body.id);
-%}
-
-### 2. Получить все категории
-GET http://localhost:{{productPort}}/api/categories
-Accept: application/json
-
-### 3. Получить категорию по ID
-GET http://localhost:{{productPort}}/api/categories/{{categoryId}}
-Accept: application/json
-
-### 4. Получить несуществующую категорию (ожидается 404)
-GET http://localhost:{{productPort}}/api/categories/999999999
-Accept: application/json
-
-
-### ═════════════════════════════════════════════
-### PRODUCT-SERVICE — ТОВАРЫ
-### ═════════════════════════════════════════════
-
-### 5. Создать АКТИВНЫЙ товар (для успешных сценариев заказа)
-# @name createProductOk
-POST http://localhost:{{productPort}}/api/products
+### Через Gateway: создать товар
+POST http://localhost:{{gatewayPort}}/api/products
 Content-Type: application/json
 
 {
-  "name": "Active Lamp {{$randomInt 1000 9999}}",
-  "description": "Умная светодиодная лампа",
+  "name": "Gateway Product {{$randomInt 1000 9999}}",
+  "description": "Товар через gateway",
   "price": 1490.00,
-  "categoryId": {{categoryId}},
+  "categoryId": 1,
   "imageUrl": "https://example.com/products/lamp.png"
 }
 
-> {%
-    client.global.set("productOk", response.body.id);
-%}
 
-### 6. Создать ВТОРОЙ товар (позже деактивируем для проверки отказа)
-# @name createProductBad
-POST http://localhost:{{productPort}}/api/products
-Content-Type: application/json
+### ═════════════════════════════════════════════
+### ПРЯМЫЕ ЗАПРОСЫ — СРАВНЕНИЕ
+### ═════════════════════════════════════════════
 
-{
-  "name": "To Be Deactivated {{$randomInt 1000 9999}}",
-  "description": "Товар для проверки отказа",
-  "price": 1000.00,
-  "categoryId": {{categoryId}}
-}
-
-> {%
-    client.global.set("productBad", response.body.id);
-%}
-
-### 7. Получить все активные товары
+### Напрямую в product-service: все активные товары
 GET http://localhost:{{productPort}}/api/products
 Accept: application/json
 
-### 8. Получить АКТИВНЫЙ товар по ID
-GET http://localhost:{{productPort}}/api/products/{{productOk}}
-Accept: application/json
-
-### 9. Получить несуществующий товар (ожидается 404)
-GET http://localhost:{{productPort}}/api/products/999999999
-Accept: application/json
-
-### 10. Получить товары категории
-GET http://localhost:{{productPort}}/api/products/category/{{categoryId}}
-Accept: application/json
-
-### 11. Поиск по названию
-GET http://localhost:{{productPort}}/api/products/search?query=Lamp
-Accept: application/json
-
-### 12. Частичное обновление АКТИВНОГО товара (цена)
-PATCH http://localhost:{{productPort}}/api/products/{{productOk}}
-Content-Type: application/json
-
-{
-  "price": 1590.00
-}
-
-
-### ═════════════════════════════════════════════
-### INVENTORY-SERVICE
-### ═════════════════════════════════════════════
-
-### 13. Создать складскую запись для АКТИВНОГО товара
-POST http://localhost:{{inventoryPort}}/api/inventory
-Content-Type: application/json
-
-{
-  "productId": {{productOk}},
-  "quantity": 100
-}
-
-### 14. Создать складскую запись для ВТОРОГО товара
-POST http://localhost:{{inventoryPort}}/api/inventory
-Content-Type: application/json
-
-{
-  "productId": {{productBad}},
-  "quantity": 50
-}
-
-### 15. Получить все складские записи
-GET http://localhost:{{inventoryPort}}/api/inventory
-Accept: application/json
-
-### 16. Получить остатки по АКТИВНОМУ товару
-GET http://localhost:{{inventoryPort}}/api/inventory/{{productOk}}
-Accept: application/json
-
-### 17. Обновить общее количество АКТИВНОГО товара
-PUT http://localhost:{{inventoryPort}}/api/inventory
-Content-Type: application/json
-
-{
-  "productId": {{productOk}},
-  "quantity": 200
-}
-
-### 18. Зарезервировать 2 единицы АКТИВНОГО товара (ожидается 200)
-POST http://localhost:{{inventoryPort}}/api/inventory/reserve
-Content-Type: application/json
-
-{
-  "productId": {{productOk}},
-  "quantity": 2
-}
-
-### 19. Зарезервировать больше, чем есть (ожидается 409)
-POST http://localhost:{{inventoryPort}}/api/inventory/reserve
-Content-Type: application/json
-
-{
-  "productId": {{productOk}},
-  "quantity": 999999
-}
-
-### 20. Снять резерв 2 единицы (ожидается 200)
-POST http://localhost:{{inventoryPort}}/api/inventory/release
-Content-Type: application/json
-
-{
-  "productId": {{productOk}},
-  "quantity": 2
-}
-
-### 21. Снять больше, чем зарезервировано (ожидается 409)
-POST http://localhost:{{inventoryPort}}/api/inventory/release
-Content-Type: application/json
-
-{
-  "productId": {{productOk}},
-  "quantity": 999999
-}
-
-
-### ═════════════════════════════════════════════
-### ORDER-SERVICE — УСПЕШНЫЕ СЦЕНАРИИ
-### ═════════════════════════════════════════════
-
-### 22. Создать заказ на АКТИВНЫЙ товар (ожидается 201, CONFIRMED)
-POST http://localhost:{{orderPort}}/api/orders
-Content-Type: application/json
-
-{
-  "customerName": "Иван Петров",
-  "customerEmail": "ivan@example.com",
-  "items": [
-    { "productId": {{productOk}}, "quantity": 2 }
-  ]
-}
-
-### 23. Заказ с дубликатом productId (ожидается 201, quantity = 3)
-POST http://localhost:{{orderPort}}/api/orders
-Content-Type: application/json
-
-{
-  "customerName": "Иван Петров",
-  "customerEmail": "ivan@example.com",
-  "items": [
-    { "productId": {{productOk}}, "quantity": 2 },
-    { "productId": {{productOk}}, "quantity": 1 }
-  ]
-}
-
-### 24. Получить все заказы
-GET http://localhost:{{orderPort}}/api/orders
-Accept: application/json
-
-### 25. Получить заказ по ID
-GET http://localhost:{{orderPort}}/api/orders/1
-Accept: application/json
-
-### 26. Получить заказы по email
-GET http://localhost:{{orderPort}}/api/orders/by-email?email=ivan@example.com
+### Напрямую в product-service: все категории
+GET http://localhost:{{productPort}}/api/categories
 Accept: application/json
 
 
 ### ═════════════════════════════════════════════
-### ORDER-SERVICE — ОТКАЗЫ (бизнес-ошибки, 422)
+### EUREKA — ПРОВЕРКА РЕГИСТРАЦИИ
 ### ═════════════════════════════════════════════
 
-### 27. Заказ на несуществующий товар (ожидается 422)
-POST http://localhost:{{orderPort}}/api/orders
-Content-Type: application/json
+### Eureka: product-service
+GET http://localhost:8761/eureka/apps/PRODUCT-SERVICE
+Accept: application/json
 
-{
-  "customerName": "Иван Петров",
-  "customerEmail": "ivan@example.com",
-  "items": [
-    { "productId": 999999999, "quantity": 1 }
-  ]
-}
+### Eureka: inventory-service
+GET http://localhost:8761/eureka/apps/INVENTORY-SERVICE
+Accept: application/json
 
-### 28. Деактивировать ВТОРОЙ товар
-PATCH http://localhost:{{productPort}}/api/products/{{productBad}}
-Content-Type: application/json
+### Eureka: order-service
+GET http://localhost:8761/eureka/apps/ORDER-SERVICE
+Accept: application/json
 
-{
-  "active": false
-}
-
-### 29. Заказ на ДЕАКТИВИРОВАННЫЙ товар (ожидается 422)
-POST http://localhost:{{orderPort}}/api/orders
-Content-Type: application/json
-
-{
-  "customerName": "Иван Петров",
-  "customerEmail": "ivan@example.com",
-  "items": [
-    { "productId": {{productBad}}, "quantity": 2 }
-  ]
-}
-
-
-### ═════════════════════════════════════════════
-### ORDER-SERVICE — ДЕГРАДАЦИЯ (Circuit Breaker)
-### ═════════════════════════════════════════════
-
-### 30. Останови product-service и запусти этот запрос.
-###     Ожидается 201, status = PENDING_CONFIRMATION.
-POST http://localhost:{{orderPort}}/api/orders
-Content-Type: application/json
-
-{
-  "customerName": "Иван Петров",
-  "customerEmail": "ivan@example.com",
-  "items": [
-    { "productId": {{productOk}}, "quantity": 2 }
-  ]
-}
-
-### 31. Останови inventory-service и запусти этот запрос.
-###     Ожидается 201, status = PENDING_CONFIRMATION.
-POST http://localhost:{{orderPort}}/api/orders
-Content-Type: application/json
-
-{
-  "customerName": "Иван Петров",
-  "customerEmail": "ivan@example.com",
-  "items": [
-    { "productId": {{productOk}}, "quantity": 2 }
-  ]
-}
-
-
-
-### 1. Создать категорию
-# @name createCategory
-POST http://localhost:{{productPort}}/api/categories
-Content-Type: application/json
-
-{
-  "name": "Test Category",
-  "description": "test"
-}
-
-> {%
-    client.global.set("categoryId", response.body.id);
-%}
-
-### 2. Создать товар (активный)
-# @name createProduct
-POST http://localhost:{{productPort}}/api/products
-Content-Type: application/json
-
-{
-  "name": "Test Product",
-  "description": "test",
-  "price": 100.00,
-  "categoryId": {{categoryId}}
-}
-
-> {%
-    client.global.set("productId", response.body.id);
-%}
-
-### 3. Создать складскую запись
-POST http://localhost:{{inventoryPort}}/api/inventory
-Content-Type: application/json
-
-{
-  "productId": {{productId}},
-  "quantity": 100
-}
-
-### 4. Создать заказ
-POST http://localhost:{{orderPort}}/api/orders
-Content-Type: application/json
-
-{
-  "customerName": "Vova",
-  "customerEmail": "ivan@example.com",
-  "items": [
-    { "productId": {{productId}}, "quantity": 2 }
-  ]
-}
+### Eureka: api-gateway
+GET http://localhost:8761/eureka/apps/API-GATEWAY
+Accept: application/json
