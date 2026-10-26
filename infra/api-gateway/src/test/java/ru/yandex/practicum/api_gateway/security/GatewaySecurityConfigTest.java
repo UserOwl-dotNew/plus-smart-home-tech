@@ -38,7 +38,6 @@ public class GatewaySecurityConfigTest {
                 .uri("/api/products")
                 .exchange()
                 .expectStatus().isOk();
-        // TODO: проверьте, что GET /api/products доступен без учётных данных
     }
 
     @Test
@@ -47,7 +46,6 @@ public class GatewaySecurityConfigTest {
                 .uri("/api/orders")
                 .exchange()
                 .expectStatus().isUnauthorized();
-        // TODO: проверьте, что POST /api/orders без учётных данных возвращает 401
     }
 
     @Test
@@ -57,7 +55,6 @@ public class GatewaySecurityConfigTest {
                 .header(HttpHeaders.AUTHORIZATION, basic("ivan", "ivan"))
                 .exchange()
                 .expectStatus().isForbidden();
-        // TODO: проверьте, что USER не может выполнять write-операцию с каталогом
     }
 
     @Test
@@ -67,7 +64,6 @@ public class GatewaySecurityConfigTest {
                 .header(HttpHeaders.AUTHORIZATION, basic("anna", "anna"))
                 .exchange()
                 .expectStatus().isOk();
-        // TODO: проверьте, что ADMIN проходит security-проверку для write-операции
     }
 
     @Test
@@ -77,19 +73,7 @@ public class GatewaySecurityConfigTest {
                 .header(HttpHeaders.AUTHORIZATION, basic("anna", "anna"))
                 .exchange()
                 .expectStatus().isForbidden();
-        // TODO: проверьте, что неизвестный маршрут закрыт даже для ADMIN
     }
-
-//    @Test
-//    void corsPreflight_isPublic() {
-//        webTestClient.options()
-//                .uri("/api/orders")
-//                .header(HttpHeaders.ORIGIN, "http://localhost:5173")
-//                .header(HttpHeaders.ACCESS_CONTROL_REQUEST_METHOD, "POST")
-//                .exchange()
-//                .expectStatus().isOk();
-//        // TODO: проверьте, что OPTIONS /api/orders не блокируется security-слоем
-//    }
 
     private String basic(String username, String password) {
         String value = username + ":" + password;
